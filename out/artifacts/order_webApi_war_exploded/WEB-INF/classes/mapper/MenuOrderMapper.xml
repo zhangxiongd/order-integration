@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.smart.order.dao.MenuOrderMapper">
+
+    <resultMap id="BaseResultMap" type="me.smart.order.model.MenuOrder">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="merchant_name" property="merchantName" jdbcType="VARCHAR"/>
+        <result column="short_name" property="shortName" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,merchant_name,short_name,password,is_delete,created_at,updated_at
+    </sql>
+
+</mapper>

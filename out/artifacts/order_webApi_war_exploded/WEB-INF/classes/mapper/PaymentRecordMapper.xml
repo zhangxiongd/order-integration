@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.smart.order.dao.PaymentRecordMapper">
+
+    <resultMap id="BaseResultMap" type="me.smart.order.model.PaymentRecord">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="transaction_id" property="transactionId" jdbcType="VARCHAR"/>
+        <result column="member_id" property="memberId" jdbcType="BIGINT"/>
+        <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR"/>
+        <result column="payment_way" property="paymentWay" jdbcType="VARCHAR"/>
+        <result column="trade_type" property="tradeType" jdbcType="VARCHAR"/>
+        <result column="total_amount" property="totalAmount" jdbcType="DECIMAL"/>
+        <result column="refunded_amount" property="refundedAmount" jdbcType="DECIMAL"/>
+        <result column="pay_status" property="payStatus" jdbcType="TINYINT"/>
+        <result column="pay_success_time" property="paySuccessTime" jdbcType="TIMESTAMP"/>
+        <result column="prepay_id" property="prepayId" jdbcType="VARCHAR"/>
+        <result column="out_transaction_id" property="outTransactionId" jdbcType="VARCHAR"/>
+        <result column="thirdUser_id" property="thirdUserId" jdbcType="VARCHAR"/>
+        <result column="return_code" property="returnCode" jdbcType="VARCHAR"/>
+        <result column="return_msg" property="returnMsg" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,transaction_id,member_id,out_trade_no,payment_way,trade_type,total_amount,refunded_amount,pay_status,
+        pay_success_time,prepay_id,out_transaction_id,thirdUser_id,return_code,return_msg,is_delete,created_at,updated_at
+    </sql>
+
+    
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.smart.order.dao.CourseCategoryMapper">
+
+    <resultMap id="BaseResultMap" type="me.smart.order.model.CourseCategory">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="category_name" property="categoryName" jdbcType="VARCHAR"/>
+        <result column="merchant_id" property="merchantId" jdbcType="BIGINT"/>
+        <result column="sort" property="sort" jdbcType="BIGINT"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,category_name,merchant_id,is_delete,created_at,updated_at
+    </sql>
+
+    <select id="getCourseCategoryListByMerchantId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        course_category
+        where
+        merchant_id = #{merchantId,jdbcType=BIGINT}
+        and is_delete = 0
+        order by sort DESC
+    </select>
+</mapper>

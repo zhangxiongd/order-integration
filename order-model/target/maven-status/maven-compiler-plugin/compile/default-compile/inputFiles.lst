@@ -1,0 +1,14 @@
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/model/CourseCategory.java
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/model/Merchant.java
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/dao/CourseMapper.java
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/model/Course.java
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/dao/CourseCategoryMapper.java
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/model/PaymentOrder.java
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/model/PaymentRecord.java
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/dao/MenuOrderMapper.java
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/dao/MemberMapper.java
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/dao/MerchantMapper.java
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/model/Member.java
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/dao/PaymentRecordMapper.java
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/dao/PaymentOrderMapper.java
+/Users/zhangxiong/workspace/order-integration/order-model/src/main/java/me/smart/order/model/MenuOrder.java

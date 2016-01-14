@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+
+    <!-- 读取jdbc.properties文件，配置数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close" p:driverClass="${jdbc_driver}" p:jdbcUrl="${jdbc_url}"
+          p:user="${jdbc_user}" p:password="${jdbc_password}"
+          p:acquireIncrement="${jdbc_acquireIncrement}"
+          p:idleConnectionTestPeriod="${jdbc_idleConnectionTestPeriod}"
+          p:maxPoolSize="${jdbc_maxPoolSize}" p:minPoolSize="${jdbc_minPoolSize}"
+          p:maxStatements="${jdbc_maxStatements}"/>
+
+    <!-- 定义 SqlSessionFactory, notice that configLocation is not needed when
+        you use MapperFactoryBean -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath*:mapper/*Mapper.xml"/>
+    </bean>
+
+    <!-- 自动扫描mapper接口所在文件夹 将Mapper接口生成代理注入到Spring -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="me.smart.order.dao"/>
+    </bean>
+
+    <!-- 能够事物管理使用注解的方式 -->
+    <tx:annotation-driven transaction-manager="transactionManager"
+                          proxy-target-class="true"/>
+
+    <!-- 声明一个事物管理 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          p:dataSource-ref="dataSource"/>
+</beans>
