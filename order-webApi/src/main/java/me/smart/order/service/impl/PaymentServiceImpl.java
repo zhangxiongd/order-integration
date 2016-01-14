@@ -13,5 +13,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     private Logger logger = LoggerFactory.getLogger(PaymentServiceImpl.class);
 
+    public void prepay() {
         
+    }
 }
