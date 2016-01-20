@@ -12,4 +12,5 @@
     <context:component-scan base-package="me.smart.order.service"/>
     <import resource="classpath:spring/spring-dao.xml"/>
 
+
 </beans>

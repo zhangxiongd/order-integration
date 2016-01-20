@@ -1,2 +1,15 @@
+me/smart/order/weixin/WexinSignService.class
+me/smart/order/controller/MenuController.class
 me/smart/order/controller/MerchantController.class
+me/smart/order/service/PaymentService.class
+me/smart/order/weixin/WeixinAccessToken.class
+me/smart/order/listener/InitApplicationListener.class
+me/smart/order/weixin/WeixinSignature.class
+me/smart/order/service/MenuService.class
+me/smart/order/service/impl/PaymentServiceImpl.class
+me/smart/order/weixin/WeixinJsapiTicket.class
+me/smart/order/service/impl/MenuServiceImpl.class
 me/smart/order/controller/IndexController.class
+me/smart/order/weixin/WeixinAccessTokenCache.class
+me/smart/order/controller/BaseController.class
+me/smart/order/controller/PaymentController.class

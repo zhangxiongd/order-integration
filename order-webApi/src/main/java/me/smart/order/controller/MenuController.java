@@ -36,6 +36,5 @@ public class MenuController extends BaseController {
             logger.info("获取餐厅菜单失败,msg={}", e);
             return errorResult(e);
         }
-
     }
 }

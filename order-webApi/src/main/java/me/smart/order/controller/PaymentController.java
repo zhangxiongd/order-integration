@@ -15,8 +15,7 @@ public class PaymentController extends BaseController {
 
     private Logger logger = LoggerFactory.getLogger(PaymentController.class);
 
-
     public Result prepay() {
         return null;
-    }
+    }21
 }
