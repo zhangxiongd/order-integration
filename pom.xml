@@ -242,17 +242,17 @@
                 <version>${version.jodaTime}</version>
             </dependency>
 
-            <!--<dependency>-->
-            <!--<groupId>cglib</groupId>-->
-            <!--<artifactId>cglib-full</artifactId>-->
-            <!--<version>${version.cglib}</version>-->
-            <!--</dependency>-->
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${version.cglib}</version>
+            </dependency>
 
-            <!--<dependency>-->
-            <!--<groupId>aopalliance</groupId>-->
-            <!--<artifactId>aopalliance</artifactId>-->
-            <!--<version>${version.aopalliance}}</version>-->
-            <!--</dependency>-->
+            <dependency>
+                <groupId>aopalliance</groupId>
+                <artifactId>aopalliance</artifactId>
+                <version>1.0</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

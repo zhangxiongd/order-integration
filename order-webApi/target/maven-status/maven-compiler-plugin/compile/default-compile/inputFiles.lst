@@ -11,5 +11,6 @@
 /Users/zhangxiong/work/order-integration/order-webApi/src/main/java/me/smart/order/listener/InitApplicationListener.java
 /Users/zhangxiong/work/order-integration/order-webApi/src/main/java/me/smart/order/service/MenuService.java
 /Users/zhangxiong/work/order-integration/order-webApi/src/main/java/me/smart/order/weixin/WeixinJsapiTicket.java
+/Users/zhangxiong/work/order-integration/order-webApi/src/main/java/me/smart/order/controller/Singleton.java
 /Users/zhangxiong/work/order-integration/order-webApi/src/main/java/me/smart/order/weixin/WeixinAccessToken.java
 /Users/zhangxiong/work/order-integration/order-webApi/src/main/java/me/smart/order/service/impl/MenuServiceImpl.java

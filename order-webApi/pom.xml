@@ -185,7 +185,6 @@
         </dependency>
 
 
-        <!--
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
@@ -198,6 +197,6 @@
             <artifactId>aopalliance</artifactId>
             <version>${version.aopalliance}</version>
         </dependency>
-        -->
+        
     </dependencies>
 </project>
