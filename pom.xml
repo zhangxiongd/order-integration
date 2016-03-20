@@ -17,7 +17,23 @@
         <module>order-webApi</module>
     </modules>
 
+    <profiles>
+        <profile>
+            <id>jdk-1.8</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <jdk>1.8</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.source>1.8</maven.compiler.source>
+                <maven.compiler.target>1.8</maven.compiler.target>
+                <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+            </properties>
+        </profile>
+    </profiles>
+
     <properties>
+
         <maven.test.skip>true</maven.test.skip>
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 
@@ -47,6 +63,9 @@
         <version.httpclient>4.4.1</version.httpclient>
         <version.servletApi>2.5</version.servletApi>
         <version.jodaTime>2.5</version.jodaTime>
+        <version.lombok>1.16.4</version.lombok>
+        <version.xstream>1.4.7</version.xstream>
+
     </properties>
     <!--<build>-->
     <!--<plugins>-->
@@ -242,16 +261,29 @@
                 <version>${version.jodaTime}</version>
             </dependency>
 
-            <dependency>
-                <groupId>cglib</groupId>
-                <artifactId>cglib</artifactId>
-                <version>${version.cglib}</version>
-            </dependency>
+            <!--<dependency>-->
+            <!--<groupId>cglib</groupId>-->
+            <!--<artifactId>cglib</artifactId>-->
+            <!--<version>${version.cglib}</version>-->
+            <!--</dependency>-->
 
             <dependency>
                 <groupId>aopalliance</groupId>
                 <artifactId>aopalliance</artifactId>
-                <version>1.0</version>
+                <version>${version.aopalliance}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${version.lombok}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${version.xstream}</version>
             </dependency>
 
         </dependencies>

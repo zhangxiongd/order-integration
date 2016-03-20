@@ -50,8 +50,16 @@ public class Result<T> {
         return new Result<T>(result);
     }
 
+    public static <T> Result<T> createResult(T result, Map<String, Object> ext) {
+        return new Result<T>(result, ext);
+    }
+
     public static <T> Result<T> errorResult(Result errorResult) {
         return new Result<T>(errorResult);
+    }
+
+    public static <T> Result<T> errorResult(ResultCode resultCode) {
+        return new Result(ResultCode.SYSTEM_ERROR, ResultCode.SYSTEM_ERROR.getDesc());
     }
 
     public boolean isSuccess() {

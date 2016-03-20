@@ -1,5 +1,7 @@
 package me.smart.order.model;
 
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -7,21 +9,41 @@ import java.util.Date;
 /**
  * Created by zhangxiong on 15/12/30.
  */
+@ToString
 public class Member implements Serializable {
     private Long id;
     private String name;
     private String mobile;
-    //微信openId
-    private String openId;
     private String loginPassword;
     private String tradePassword;
     private BigDecimal balance;
     private String birth;
     private Integer gender;
-    private String memberImg;
+    private String headImgUrl;
+    private String country;
+    private String province;
+    private String city;
     private Boolean isDelete;
     private Date createdAt;
+    private Date lastLoginAt;
     private Date updatedAt;
+
+    public Member() {
+    }
+
+    public Member(String name, Integer gender, String headImgUrl, String country, String province, String city) {
+        this.name = name;
+        this.gender = gender;
+        this.headImgUrl = headImgUrl;
+        this.country = country;
+        this.province = province;
+        this.city = city;
+        this.isDelete = false;
+        Date date = new Date();
+        this.createdAt = date;
+        this.lastLoginAt = date;
+        this.updatedAt = date;
+    }
 
     public Long getId() {
         return id;
@@ -46,14 +68,6 @@ public class Member implements Serializable {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
-    }
-
-    public String getOpenId() {
-        return openId;
-    }
-
-    public void setOpenId(String openId) {
-        this.openId = openId;
     }
 
     public String getLoginPassword() {
@@ -96,12 +110,36 @@ public class Member implements Serializable {
         this.gender = gender;
     }
 
-    public String getMemberImg() {
-        return memberImg;
+    public String getHeadImgUrl() {
+        return headImgUrl;
     }
 
-    public void setMemberImg(String memberImg) {
-        this.memberImg = memberImg;
+    public void setHeadImgUrl(String headImgUrl) {
+        this.headImgUrl = headImgUrl;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Boolean getIsDelete() {
@@ -116,6 +154,14 @@ public class Member implements Serializable {
         return createdAt;
     }
 
+    public Date getLastLoginAt() {
+        return lastLoginAt;
+    }
+
+    public void setLastLoginAt(Date lastLoginAt) {
+        this.lastLoginAt = lastLoginAt;
+    }
+
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
@@ -126,25 +172,5 @@ public class Member implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Member{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", mobile='").append(mobile).append('\'');
-        sb.append(", openId='").append(openId).append('\'');
-        sb.append(", loginPassword='").append(loginPassword).append('\'');
-        sb.append(", tradePassword='").append(tradePassword).append('\'');
-        sb.append(", balance=").append(balance);
-        sb.append(", birth='").append(birth).append('\'');
-        sb.append(", gender=").append(gender);
-        sb.append(", memberImg='").append(memberImg).append('\'');
-        sb.append(", isDelete=").append(isDelete);
-        sb.append(", createdAt=").append(createdAt);
-        sb.append(", updatedAt=").append(updatedAt);
-        sb.append('}');
-        return sb.toString();
     }
 }

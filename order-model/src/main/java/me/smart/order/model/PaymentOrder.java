@@ -1,6 +1,9 @@
 package me.smart.order.model;
 
+import me.smart.order.enums.PaymentOrderStatus;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -16,7 +19,9 @@ public class PaymentOrder implements Serializable {
     //菜单订单号
     private String menuOutTradeNo;
     //支付订单总金额
-    private String totalAmount;
+    private BigDecimal totalAmount;
+
+    private String orderName;
 
     //订单描述
     private String productBody;
@@ -41,6 +46,26 @@ public class PaymentOrder implements Serializable {
     private Date createdAt;
     private Date updatedAt;
 
+    public PaymentOrder() {
+    }
+
+
+    public PaymentOrder(Long merchantId, Long memberId,
+                        String outTradeNo, String menuOutTradeNo,
+                        BigDecimal totalAmount, String productBody, Integer payDeadLine) {
+        this.merchantId = merchantId;
+        this.memberId = memberId;
+        this.outTradeNo = outTradeNo;
+        this.menuOutTradeNo = menuOutTradeNo;
+        this.totalAmount = totalAmount;
+        this.productBody = productBody;
+        this.payDeadLine = payDeadLine;
+        this.currency = "CNY";
+        this.orderStatus = PaymentOrderStatus.PROCESS.getStatus();
+        this.isDelete = false;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
 
     public Long getId() {
         return id;
@@ -82,12 +107,20 @@ public class PaymentOrder implements Serializable {
         this.menuOutTradeNo = menuOutTradeNo;
     }
 
-    public String getTotalAmount() {
+    public BigDecimal getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(String totalAmount) {
+    public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getOrderName() {
+        return orderName;
+    }
+
+    public void setOrderName(String orderName) {
+        this.orderName = orderName;
     }
 
     public String getProductBody() {
@@ -179,6 +212,7 @@ public class PaymentOrder implements Serializable {
         sb.append(", outTradeNo='").append(outTradeNo).append('\'');
         sb.append(", menuOutTradeNo='").append(menuOutTradeNo).append('\'');
         sb.append(", totalAmount='").append(totalAmount).append('\'');
+        sb.append(", orderName='").append(orderName).append('\'');
         sb.append(", productBody='").append(productBody).append('\'');
         sb.append(", orderData='").append(orderData).append('\'');
         sb.append(", payDeadLine=").append(payDeadLine);

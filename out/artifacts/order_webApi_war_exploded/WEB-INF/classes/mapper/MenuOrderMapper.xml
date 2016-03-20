@@ -4,16 +4,38 @@
 
     <resultMap id="BaseResultMap" type="me.smart.order.model.MenuOrder">
         <id column="id" property="id" jdbcType="BIGINT"/>
-        <result column="merchant_name" property="merchantName" jdbcType="VARCHAR"/>
-        <result column="short_name" property="shortName" jdbcType="VARCHAR"/>
-        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="merchant_id" property="merchantId" jdbcType="BIGINT"/>
+        <result column="member_id" property="memberId" jdbcType="BIGINT"/>
+        <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR"/>
+        <result column="total_amount" property="totalAmount" jdbcType="DECIMAL"/>
+        <result column="payAmount" property="payAmount" jdbcType="DECIMAL"/>
+        <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL"/>
+        <result column="discount_type" property="discountType" jdbcType="BIGINT"/>
+        <result column="discountC_comment" property="discountComment" jdbcType="VARCHAR"/>
+        <result column="order_status" property="orderStatus" jdbcType="BIGINT"/>
+        <result column="table_no" property="tableNo" jdbcType="VARCHAR"/>
         <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
         <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
         <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,merchant_name,short_name,password,is_delete,created_at,updated_at
+        id,merchant_id,member_id,out_trade_no,total_amount,payAmount,discount_amount,discount_type,
+        discountC_comment,order_status,table_no,is_delete,created_at,updated_at
     </sql>
 
+    <insert id="insertSelective" parameterType="me.smart.order.model.MenuOrder">
+        INSERT INTO menu_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">
+                merchant_id
+            </if>
+            <if test="memberId != null">
+                member_id
+            </if>
+            <if test="outTradeNo != null">
+                out_trade_no
+            </if>
+        </trim>
+    </insert>
 </mapper>

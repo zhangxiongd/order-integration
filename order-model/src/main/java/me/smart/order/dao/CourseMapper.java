@@ -10,4 +10,10 @@ import java.util.List;
  */
 public interface CourseMapper {
     List<Course> getCourseListByMerchantAndCategory(@Param("merchantId") Long merchantId, @Param("categoryId") Long categoryId);
+
+    Course findById(@Param("id") Long id);
+
+
+    List<Course> findByIds(@Param("ids") Long[] ids);
+
 }

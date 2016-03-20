@@ -6,12 +6,19 @@
         <artifactId>order-integration</artifactId>
         <groupId>me.smart.order</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>order-model</artifactId>
-
+    <packaging>jar</packaging>
     <dependencies>
+
+        <dependency>
+            <groupId>me.smart.order</groupId>
+            <artifactId>order-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -30,6 +37,11 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,5 +1,8 @@
 package me.smart.order.util;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -24,9 +27,10 @@ public class XMLParser {
 
     static Logger log = LoggerFactory.getLogger(XMLParser.class);
 
-    public static Map<String, Object> getMapFromXML(String xmlString) throws ParserConfigurationException, IOException, SAXException {
+    public static Map<String, Object> xmlToMap(String xmlString) throws ParserConfigurationException, IOException, SAXException {
 
         //这里用Dom的方式解析回包的最主要目的是防止API新增回包字段
+        log.info("待转化xml={}", xmlString);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         InputStream is = new ByteArrayInputStream(xmlString.getBytes("utf-8"));
@@ -43,9 +47,18 @@ public class XMLParser {
             }
             i++;
         }
+        log.info("转化得到的map＝{}", map);
         return map;
 
     }
 
-
+    /**
+     * 对象转化成xml字符串
+     *
+     * @return
+     */
+    public static String objectToXml(Object object) {
+        XStream xStreamForRequestPostData = new XStream(new DomDriver("UTF-8", new XmlFriendlyNameCoder("-_", "_")));
+        return xStreamForRequestPostData.toXML(object);
+    }
 }

@@ -1,5 +1,7 @@
 package me.smart.order.model;
 
+import me.smart.order.enums.MenuOrderStatus;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,10 +12,20 @@ import java.util.Date;
  */
 public class MenuOrder implements Serializable {
     private Long id;
+    /**
+     * 用户id
+     */
     private Long memberId;
+    /**
+     * 餐厅id
+     */
     private Long merchantId;
+    /**
+     * 桌号
+     */
+    private String tableNo;
     //订单号
-    private String outTradeNo;
+    private String menuOrderNo;
     //订单总金额
     private BigDecimal totalAmount;
     //订单支付金额
@@ -24,13 +36,45 @@ public class MenuOrder implements Serializable {
     private Integer discountType;
     //订单优惠纪录(不同的优惠方式纪录不同的信息)
     private String discountComment;
+    //菜单订单状态 0:待处理,1:餐厅已接单,2:餐厅已拒单
     private Integer orderStatus;
+    /**
+     * 用户备注
+     */
+    private String remark;
+    /**
+     * 用餐人数
+     */
+    private Integer peopleNumber;
+
 
     private Boolean isDelete;
+
 
     private Date createdAt;
 
     private Date updatedAt;
+
+
+    public MenuOrder() {
+    }
+
+
+    public MenuOrder(Long memberId, Long merchantId, String remark, String menuOrderNo,
+                     BigDecimal totalAmount, BigDecimal payAmount, String tableNo, Integer peopleNumber) {
+        this.memberId = memberId;
+        this.merchantId = merchantId;
+        this.remark = remark;
+        this.menuOrderNo = menuOrderNo;
+        this.totalAmount = totalAmount;
+        this.payAmount = payAmount;
+        this.tableNo = tableNo;
+        this.orderStatus = MenuOrderStatus.PENDING.getStatus();
+        this.isDelete = false;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+        this.peopleNumber = peopleNumber;
+    }
 
     public Long getId() {
         return id;
@@ -56,12 +100,12 @@ public class MenuOrder implements Serializable {
         this.merchantId = merchantId;
     }
 
-    public String getOutTradeNo() {
-        return outTradeNo;
+    public String getMenuOrderNo() {
+        return menuOrderNo;
     }
 
-    public void setOutTradeNo(String outTradeNo) {
-        this.outTradeNo = outTradeNo;
+    public void setMenuOrderNo(String menuOrderNo) {
+        this.menuOrderNo = menuOrderNo;
     }
 
     public BigDecimal getTotalAmount() {
@@ -112,6 +156,30 @@ public class MenuOrder implements Serializable {
         this.orderStatus = orderStatus;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getTableNo() {
+        return tableNo;
+    }
+
+    public void setTableNo(String tableNo) {
+        this.tableNo = tableNo;
+    }
+
+    public Integer getPeopleNumber() {
+        return peopleNumber;
+    }
+
+    public void setPeopleNumber(Integer peopleNumber) {
+        this.peopleNumber = peopleNumber;
+    }
+
     public Boolean getIsDelete() {
         return isDelete;
     }
@@ -142,13 +210,15 @@ public class MenuOrder implements Serializable {
         sb.append("id=").append(id);
         sb.append(", memberId=").append(memberId);
         sb.append(", merchantId=").append(merchantId);
-        sb.append(", outTradeNo='").append(outTradeNo).append('\'');
+        sb.append(", menuOrderNo='").append(menuOrderNo);
         sb.append(", totalAmount=").append(totalAmount);
         sb.append(", payAmount=").append(payAmount);
         sb.append(", discountAmount=").append(discountAmount);
         sb.append(", discountType=").append(discountType);
-        sb.append(", discountComment='").append(discountComment).append('\'');
+        sb.append(", discountComment='").append(discountComment);
         sb.append(", orderStatus=").append(orderStatus);
+        sb.append(", remark=").append(remark);
+        sb.append(", tableNo=").append(tableNo);
         sb.append(", isDelete=").append(isDelete);
         sb.append(", createdAt=").append(createdAt);
         sb.append(", updatedAt=").append(updatedAt);

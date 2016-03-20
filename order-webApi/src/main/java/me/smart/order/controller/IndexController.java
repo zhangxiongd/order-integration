@@ -1,7 +1,6 @@
 package me.smart.order.controller;
 
 import me.smart.order.dao.MerchantMapper;
-import me.smart.order.model.Merchant;
 import me.smart.order.weixin.WeixinSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -29,24 +30,16 @@ public class IndexController {
     @Resource
     private MerchantMapper merchantMapper;
 
-    @RequestMapping(value = "/list")
-    @ResponseBody
-    public Merchant index() {
-        Map<String, Object> result = new HashMap<String, Object>();
-        Merchant merchant = merchantMapper.getMerchantById(1l);
-        return merchant;
-    }
-
     @RequestMapping(value = "/check")
     @ResponseBody
-    public String check(HttpServletRequest request) {
-        //    m867lpdsef0p02vw6xbyjxacjiclvtlu
+    public String check(HttpServletRequest request, HttpServletResponse response) {
         log.info("check server");
         Map<String, Object> requestMap = requestToMap(request);
         log.info("request map = {}", requestMap);
         String timestamp = requestMap.get("timestamp").toString();
         String noncestr = requestMap.get("nonce").toString();
         String token = "m867lpdsef0p02vw6xbyjxacjiclvtlu";
+
 
         Map<String, Object> signMap = new HashMap<String, Object>();
         signMap.put("timestamp", timestamp);
@@ -59,6 +52,11 @@ public class IndexController {
         if (sign.equals(requestMap.get("signature").toString())) {
             return requestMap.get("echostr").toString();
         }
+        Cookie cookie = new Cookie("name", "zhangxiong");
+        cookie.setDomain(".mydian.net");
+        cookie.setPath("/");
+        cookie.setMaxAge(Integer.MAX_VALUE);
+        response.addCookie(cookie);
         return "";
     }
 

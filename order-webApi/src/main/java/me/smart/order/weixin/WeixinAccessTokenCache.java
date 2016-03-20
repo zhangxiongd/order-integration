@@ -1,11 +1,13 @@
 package me.smart.order.weixin;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
  * Created by zhangxiong on 16/1/16.
  */
 @Component("weixinAccessTokenCache")
+@Scope(value = "singleton")
 public class WeixinAccessTokenCache {
     private WeixinAccessToken accessToken;
 

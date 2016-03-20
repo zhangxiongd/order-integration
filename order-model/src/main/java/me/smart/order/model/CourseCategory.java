@@ -1,5 +1,7 @@
 package me.smart.order.model;
 
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,6 +9,7 @@ import java.util.Date;
  * 菜系类别
  * Created by zhangxiong on 15/12/30.
  */
+@ToString
 public class CourseCategory implements Serializable {
     private Long id;
     private String categoryName;
@@ -70,19 +73,5 @@ public class CourseCategory implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("CourseCategory{");
-        sb.append("id=").append(id);
-        sb.append(", categoryName='").append(categoryName).append('\'');
-        sb.append(", merchantId=").append(merchantId);
-        sb.append(", sort=").append(sort);
-        sb.append(", isDelete=").append(isDelete);
-        sb.append(", createdAt=").append(createdAt);
-        sb.append(", updatedAt=").append(updatedAt);
-        sb.append('}');
-        return sb.toString();
     }
 }

@@ -1,10 +1,14 @@
-me/smart/order/exception/BusinessException.class
+me/smart/order/api/Request/QueryMenuRequest.class
 me/smart/order/api/service/PaymentService.class
+me/smart/order/api/MenuOrderCourseInfo.class
 me/smart/order/api/Response/MerchantMenuResponse.class
 me/smart/order/api/Result.class
+me/smart/order/api/CategoryInfo.class
+me/smart/order/exception/BusinessException.class
+me/smart/order/api/Request/MenuOrderRequest.class
+me/smart/order/api/Response/MenuOrderResponse.class
 me/smart/order/exception/ResultCodeException.class
 me/smart/order/api/Request/BaseRequest.class
 me/smart/order/api/Request/ValidateRequest.class
-me/smart/order/api/CategoryInfo.class
 me/smart/order/enums/ResultCode.class
 me/smart/order/api/CourseInfo.class

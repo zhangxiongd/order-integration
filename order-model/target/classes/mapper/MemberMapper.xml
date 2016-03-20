@@ -4,16 +4,123 @@
 
     <resultMap id="BaseResultMap" type="me.smart.order.model.Member">
         <id column="id" property="id" jdbcType="BIGINT"/>
-        <result column="merchant_name" property="merchantName" jdbcType="VARCHAR"/>
-        <result column="short_name" property="shortName" jdbcType="VARCHAR"/>
-        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="login_password" property="loginPassword" jdbcType="VARCHAR"/>
+        <result column="trade_password" property="tradePassword" jdbcType="VARCHAR"/>
+        <result column="balance" property="balance" jdbcType="DECIMAL"/>
+        <result column="birth" property="birth" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="TINYINT"/>
+        <result column="head_img_url" property="headImgUrl" jdbcType="VARCHAR"/>
+        <result column="country" property="country" jdbcType="VARCHAR"/>
+        <result column="province" property="province" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
         <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
         <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="last_login_at" property="lastLoginAt" jdbcType="TIMESTAMP"/>
         <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,merchant_name,short_name,password,is_delete,created_at,updated_at
+        id,name,mobile,login_password,trade_password,balance,birth,gender,
+        head_img_url,country,province,city,is_delete,created_at,updated_at
     </sql>
 
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO member
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="loginPassword != null">
+                login_password,
+            </if>
+            <if test="tradePassword != null">
+                trade_password,
+            </if>
+            <if test="balance != null">
+                balance,
+            </if>
+            <if test="birth != null">
+                birth,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="headImgUrl != null">
+                head_img_url,
+            </if>
+            <if test="country != null">
+                country,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="createdAt != null">
+                created_at,
+            </if>
+            <if test="lastLoginAt != null">
+                last_login_at,
+            </if>
+            <if test="updatedAt != null">
+                updated_at,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="loginPassword != null">
+                #{loginPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="tradePassword != null">
+                #{tradePassword,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null">
+                #{balance,jdbcType=DECIMAL},
+            </if>
+            <if test="birth != null">
+                #{birth,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=TINYINT},
+            </if>
+            <if test="headImgUrl != null">
+                #{headImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null">
+                #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createdAt != null">
+                sysdate(),
+            </if>
+            <if test="lastLoginAt != null">
+                sysdate(),
+            </if>
+            <if test="updatedAt != null">
+                sysdate(),
+            </if>
+        </trim>
+    </insert>
 </mapper>

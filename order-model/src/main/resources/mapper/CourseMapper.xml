@@ -33,4 +33,23 @@
         and is_delete = 0
         order by sort DESC
     </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from course
+        where
+        id = #{id,jdbcType=BIGINT}
+    </select>
+
+
+    <select id="findByIds" resultMap="BaseResultMap" parameterType="java.util.List">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from course
+        where id in
+        <foreach collection="ids" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

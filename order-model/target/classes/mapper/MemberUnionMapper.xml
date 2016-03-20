@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.smart.order.dao.MemberUnionMapper">
+
+    <resultMap id="BaseResultMap" type="me.smart.order.model.MemberUnion">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="member_id" property="memberId" jdbcType="BIGINT"/>
+        <result column="open_id" property="openId" jdbcType="VARCHAR"/>
+        <result column="union_id" property="unionId" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,merchant_name,short_name,password,is_delete,created_at,updated_at
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO member_union
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="memberId !=null">
+                member_id,
+            </if>
+            <if test="openId != null">
+                open_id,
+            </if>
+            <if test="unionId != null">
+                union_id,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="createdAt != null">
+                created_at,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="memberId !=null">
+                #{memberId,jdbcType=INTEGER},
+            </if>
+            <if test="openId != null">
+                #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="unionId != null">
+                #{unionId,jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createdAt != null">
+                sysdate(),
+            </if>
+        </trim>
+    </insert>
+</mapper>

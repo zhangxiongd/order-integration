@@ -17,6 +17,7 @@ public enum ResultCode {
 
     @Deprecated
     PAY_SUCCESS("1111", "支付成功"),
+
     // ======== 以下为错误码 ========
 
     //    @Deprecated
@@ -25,12 +26,16 @@ public enum ResultCode {
     // 报文相关：
     @Deprecated
     JSON_FORMAT_ERROR("1002", "报文错误"),
-
+    @Deprecated
+    REQUEST_NOT_VALID("1003", "报文非法"),
+    SIGN_ERROR("1003", "报文非法"),
 
     SYSTEM_ERROR("2094", "系统异常"),
 
-    @Deprecated
-    REQUEST_NOT_VALID("1003", "报文非法");
+    MEMBER_NOT_EXIST_ERROR("3001", "用户不存在"),
+
+
+    TENPAY_SYS_ERROR("4006", "微信API请求逻辑错误");
 
 
     private String code, desc;

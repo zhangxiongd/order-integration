@@ -1,13 +1,16 @@
 package me.smart.order.api.Response;
 
+import lombok.ToString;
 import me.smart.order.api.CategoryInfo;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by zhangxiong on 16/1/5.
  */
-public class MerchantMenuResponse {
+@ToString
+public class MerchantMenuResponse implements Serializable {
     private Long merchantId;
     private String merchantName;
 
@@ -37,13 +40,4 @@ public class MerchantMenuResponse {
         this.categoryList = categoryList;
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("MerchantMenuResponse{");
-        sb.append("merchantId=").append(merchantId);
-        sb.append(", merchantName='").append(merchantName).append('\'');
-        sb.append(", categoryList=").append(categoryList);
-        sb.append('}');
-        return sb.toString();
-    }
 }

@@ -1,5 +1,7 @@
 package me.smart.order.model;
 
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -8,6 +10,7 @@ import java.util.Date;
  * 菜品
  * Created by zhangxiong on 15/12/29.
  */
+@ToString
 public class Course implements Serializable {
 
     private Long id;
@@ -144,22 +147,4 @@ public class Course implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Course{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", merchantId=").append(merchantId);
-        sb.append(", categoryId=").append(categoryId);
-        sb.append(", courseImg='").append(courseImg).append('\'');
-        sb.append(", salePrice=").append(salePrice);
-        sb.append(", specialPrice=").append(specialPrice);
-        sb.append(", memberPrice=").append(memberPrice);
-        sb.append(", sort=").append(sort);
-        sb.append(", isDelete=").append(isDelete);
-        sb.append(", createdAt=").append(createdAt);
-        sb.append(", updatedAt=").append(updatedAt);
-        sb.append('}');
-        return sb.toString();
-    }
 }

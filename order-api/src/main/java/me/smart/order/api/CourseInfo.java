@@ -1,8 +1,11 @@
 package me.smart.order.api;
 
+import lombok.ToString;
+
 /**
  * Created by zhangxiong on 15/12/27.
  */
+@ToString
 public class CourseInfo {
     private Long courseId;
     private String courseName;
@@ -68,20 +71,6 @@ public class CourseInfo {
 
     public void setVolume(int volume) {
         this.volume = volume;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("CourseInfo{");
-        sb.append("courseId=").append(courseId);
-        sb.append(", courseName='").append(courseName).append('\'');
-        sb.append(", salePrice=").append(salePrice);
-        sb.append(", specialPrice=").append(specialPrice);
-        sb.append(", memberPrice=").append(memberPrice);
-        sb.append(", courseImg='").append(courseImg).append('\'');
-        sb.append(", volume=").append(volume);
-        sb.append('}');
-        return sb.toString();
     }
 
 }
