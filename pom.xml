@@ -15,6 +15,7 @@
         <module>order-model</module>
         <module>order-service</module>
         <module>order-webApi</module>
+        <module>order-merchant</module>
     </modules>
 
     <profiles>
