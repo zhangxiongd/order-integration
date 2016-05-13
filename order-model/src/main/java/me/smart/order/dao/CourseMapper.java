@@ -16,4 +16,41 @@ public interface CourseMapper {
 
     List<Course> findByIds(@Param("ids") Long[] ids);
 
+    Course findByMchIdAndCategoryIdAndName(@Param("merchantId") Long merchantId,
+                                           @Param("categoryId") Long categoryId, @Param("name") String name);
+
+    /**
+     * 保存
+     *
+     * @param course
+     * @return
+     */
+    int save(Course course);
+
+
+    /**
+     * 上下架操作
+     *
+     * @param course
+     * @return
+     */
+    int updateByShelf(Course course);
+
+    /**
+     * 将菜置失效
+     *
+     * @param merchantId
+     * @param categoryId
+     * @return
+     */
+    int updateIsDeleteByCategory(@Param("merchantId") Long merchantId,
+                                 @Param("categoryId") Long categoryId);
+
+    /**
+     * 更新价格 菜名  图像
+     *
+     * @param course
+     * @return
+     */
+    int updateCourse(Course course);
 }

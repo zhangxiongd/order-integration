@@ -10,6 +10,9 @@ public enum ErrorCode {
 
 
     REDIS_ERROR("2004", "redis出错"),
+    SIGN_ERROR("2005", "签名错误"),
+    PARSE_ERROR("2006", "转化异常"),
+    SQL_ERROR("2007", "数据库操作错误"),
 
 
     // 3000~3999：三方支付错误
@@ -43,7 +46,6 @@ public enum ErrorCode {
     TENPAY_NOTIFY_ERROR("3014", "微信返回通知错误"),
 
     TENPAY_OPEN_ID_ERROR("3015", "微信openId错误");
-
 
     private String code, desc;
 

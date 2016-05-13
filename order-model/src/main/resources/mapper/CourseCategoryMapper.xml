@@ -26,4 +26,66 @@
         and is_delete = 0
         order by sort DESC
     </select>
+
+
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        course_category
+        where
+        id = #{id,jdbcType=BIGINT}
+        and is_delete = 0
+    </select>
+
+    <insert id="insert" parameterType="BaseResultMap" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO course_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="categoryName == null">
+                category_name
+            </if>
+            <if test="merchantCategoryId == null">
+                merchant_category_id
+            </if>
+            <if test="merchantId == null">
+                merchant_id
+            </if>
+            <if test="sort == null">
+                sort
+            </if>
+            <if test="isDelete == null">
+                is_delete
+            </if>
+            <if test="createdAt == null">
+                created_at
+            </if>
+            <if test="updatedAt == null">
+                updated_at
+            </if>
+        </trim>
+
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="categoryName == null">
+                #{categoryName,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantCategoryId == null">
+                #{merchantCategoryId,jdbcType=BIGINT},
+            </if>
+            <if test="merchantId == null">
+                #{merchantId,jdbcType=BIGINT},
+            </if>
+            <if test="sort == null">
+                #{sort,jdbcType=BIGINT},
+            </if>
+            <if test="isDelete == null">
+                #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createdAt == null">
+                #{createdAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedAt == null">
+                #{updatedAt,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
 </mapper>

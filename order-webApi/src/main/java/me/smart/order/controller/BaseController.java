@@ -1,8 +1,8 @@
 package me.smart.order.controller;
 
 import me.smart.order.api.MenuOrderCourseInfo;
-import me.smart.order.api.Request.MenuOrderRequest;
 import me.smart.order.api.Result;
+import me.smart.order.api.member.Request.MenuOrderRequest;
 import me.smart.order.enums.ResultCode;
 import me.smart.order.exception.BusinessException;
 import me.smart.order.exception.ResultCodeException;
@@ -29,7 +29,7 @@ public class BaseController {
     }
 
 
-    protected static void checkSign(Object object) throws BusinessException {
+    protected static void checkSign(Object object) throws Exception {
         Map<String, Object> map = ConvertUtil.objectToMap(object);
         if (map == null) {
             logger.error("Sign error cause of map is null, and the object is = {}", object.toString());

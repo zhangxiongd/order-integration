@@ -20,9 +20,9 @@ public class TenPaySignature {
     public static String getSign(Map<String, Object> map) {
         ArrayList<String> list = new ArrayList<String>();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
-            if (!org.springframework.util.StringUtils.isEmpty(entry.getValue())) {
-                list.add(entry.getKey() + "=" + entry.getValue() + "&");
-            }
+//            if (!org.springframework.util.StrinUg.isEmpty(entry.getValue())) {
+//                list.add(entry.getKey() + "=" + entry.getValue() + "&");
+//            }
         }
         int size = list.size();
         String[] arrayToSort = list.toArray(new String[size]);

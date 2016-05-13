@@ -6,35 +6,121 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="merchant_id" property="merchantId" jdbcType="BIGINT"/>
         <result column="member_id" property="memberId" jdbcType="BIGINT"/>
-        <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="menu_order_no" property="menuOrderNo" jdbcType="VARCHAR"/>
         <result column="total_amount" property="totalAmount" jdbcType="DECIMAL"/>
-        <result column="payAmount" property="payAmount" jdbcType="DECIMAL"/>
+        <result column="pay_amount" property="payAmount" jdbcType="DECIMAL"/>
         <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL"/>
-        <result column="discount_type" property="discountType" jdbcType="BIGINT"/>
-        <result column="discountC_comment" property="discountComment" jdbcType="VARCHAR"/>
-        <result column="order_status" property="orderStatus" jdbcType="BIGINT"/>
+        <result column="discount_type" property="discountType" jdbcType="TINYINT"/>
+        <result column="discount_comment" property="discountComment" jdbcType="VARCHAR"/>
+        <result column="order_status" property="orderStatus" jdbcType="TINYINT"/>
         <result column="table_no" property="tableNo" jdbcType="VARCHAR"/>
+        <result column="people_number" property="peopleNumber" jdbcType="TINYINT"/>
         <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
         <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
         <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,merchant_id,member_id,out_trade_no,total_amount,payAmount,discount_amount,discount_type,
-        discountC_comment,order_status,table_no,is_delete,created_at,updated_at
+        id,merchant_id,member_id,menu_order_no,total_amount,payAmount,discount_amount,discount_type,
+        discountC_comment,order_status,table_no,is_delete,created_at,updated_at,people_number
     </sql>
 
-    <insert id="insertSelective" parameterType="me.smart.order.model.MenuOrder">
+    <insert id="insert" parameterType="me.smart.order.model.MenuOrder" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO menu_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="merchantId != null">
-                merchant_id
+                merchant_id,
             </if>
             <if test="memberId != null">
-                member_id
+                member_id,
             </if>
-            <if test="outTradeNo != null">
-                out_trade_no
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="menuOrderNo != null">
+                menu_order_no,
+            </if>
+            <if test="totalAmount != null">
+                total_amount,
+            </if>
+            <if test="payAmount != null">
+                pay_amount,
+            </if>
+            <if test="discountAmount != null">
+                discount_amount,
+            </if>
+            <if test="discountType != null">
+                discount_type,
+            </if>
+            <if test="discountComment != null">
+                discount_comment,
+            </if>
+            <if test="orderStatus != null">
+                order_status,
+            </if>
+            <if test="tableNo != null">
+                table_no,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="createdAt != null">
+                created_at,
+            </if>
+            <if test="updatedAt != null">
+                updated_at,
+            </if>
+            <if test="peopleNumber != null">
+                people_number,
+            </if>
+
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">
+                #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="memberId != null">
+                #{memberId,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="menuOrderNo != null">
+                #{menuOrderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null">
+                #{totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="payAmount != null">
+                #{payAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="discountAmount != null">
+                #{discountAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="discountType != null">
+                #{discountType,jdbcType=TINYINT},
+            </if>
+            <if test="discountComment != null">
+                #{discountComment,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatus != null">
+                #{orderStatus,jdbcType=TINYINT},
+            </if>
+            <if test="tableNo != null">
+                #{tableNo,jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createdAt != null">
+                sysdate(),
+            </if>
+            <if test="updatedAt != null">
+                sysdate(),
+            </if>
+            <if test="peopleNumber != null">
+                #{peopleNumber,jdbcType=TINYINT},
             </if>
         </trim>
     </insert>

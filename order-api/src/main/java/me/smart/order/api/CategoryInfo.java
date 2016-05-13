@@ -1,17 +1,20 @@
 package me.smart.order.api;
 
-import lombok.ToString;
-
-import java.util.List;
-
 /**
- * Created by zhangxiong on 16/1/5.
+ * Created by zhangxiong on 16/4/14.
  */
-@ToString
 public class CategoryInfo {
     private Long categoryId;
     private String categoryName;
-    private List<CourseInfo> courseInfoList;
+
+
+    public CategoryInfo() {
+    }
+
+    public CategoryInfo(Long categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+    }
 
     public Long getCategoryId() {
         return categoryId;
@@ -27,13 +30,5 @@ public class CategoryInfo {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
-    }
-
-    public List<CourseInfo> getCourseInfoList() {
-        return courseInfoList;
-    }
-
-    public void setCourseInfoList(List<CourseInfo> courseInfoList) {
-        this.courseInfoList = courseInfoList;
     }
 }

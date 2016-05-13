@@ -1,8 +1,8 @@
 package me.smart.order.controller;
 
-import me.smart.order.api.Request.QueryMenuRequest;
-import me.smart.order.api.Response.MerchantMenuResponse;
 import me.smart.order.api.Result;
+import me.smart.order.api.member.Request.QueryMenuRequest;
+import me.smart.order.api.member.Response.MerchantMenuResponse;
 import me.smart.order.service.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class MenuController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     @Resource
-    private MenuService menuService;
+    private MenuService menuServiceProxy;
 
     /**
      * 根据merchantId获取餐厅列表
@@ -39,7 +39,7 @@ public class MenuController extends BaseController {
         try {
             queryMenuRequest.validate();
             checkSign(queryMenuRequest);
-            MerchantMenuResponse merchantMenuResponse = menuService.getMerchantMenuList(Long.valueOf(queryMenuRequest.getMerchantId()));
+            MerchantMenuResponse merchantMenuResponse = menuServiceProxy.getMerchantMenuList(Long.valueOf(queryMenuRequest.getMerchantId()));
             return Result.createResult(merchantMenuResponse);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

@@ -6,7 +6,7 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="transaction_id" property="transactionId" jdbcType="VARCHAR"/>
         <result column="member_id" property="memberId" jdbcType="BIGINT"/>
-        <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR"/>
+        <result column="out_trade_no" property="menuOrderNo" jdbcType="VARCHAR"/>
         <result column="payment_way" property="paymentWay" jdbcType="VARCHAR"/>
         <result column="trade_type" property="tradeType" jdbcType="VARCHAR"/>
         <result column="total_amount" property="totalAmount" jdbcType="DECIMAL"/>
@@ -28,5 +28,5 @@
         pay_success_time,prepay_id,out_transaction_id,thirdUser_id,return_code,return_msg,is_delete,created_at,updated_at
     </sql>
 
-    
+
 </mapper>

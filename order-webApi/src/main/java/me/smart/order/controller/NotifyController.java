@@ -24,7 +24,8 @@ public class NotifyController {
      */
     @RequestMapping(value = "tenpay")
     public void acceptTenPayNotify(@RequestBody String msg) {
-        logger.info("微信支付回调通知: {}", msg);
         
+        logger.info("微信支付回调通知: {}", msg);
+
     }
 }

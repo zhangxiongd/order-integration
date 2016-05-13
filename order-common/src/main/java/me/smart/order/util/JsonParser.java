@@ -4,6 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import me.smart.order.enums.ErrorCode;
+import me.smart.order.exception.SystemException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -15,6 +19,9 @@ import java.util.Map;
  * @deprecated Use JsonConvertUtils instead
  */
 public class JsonParser {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     /**
      * 根据指定类型把jsonStr转换为Java对象
@@ -96,12 +103,20 @@ public class JsonParser {
             throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
         Field[] fields = object.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            Object obj;
-            field.setAccessible(true);
-            obj = field.get(object);
-            if (obj != null && !field.getName().equals("serialVersionUID")) {
-                map.put(field.getName(), obj);
+        try {
+            for (Field field : fields) {
+                Object obj;
+                field.setAccessible(true);
+                obj = field.get(object);
+                if (obj != null && !field.getName().equals("serialVersionUID")) {
+                    map.put(field.getName(), obj);
+                }
+            }
+        } catch (Exception e) {
+            throw new SystemException(ErrorCode.PARSE_ERROR);
+        } finally {
+            if (map == null) {
+                throw new SystemException(ErrorCode.PARSE_ERROR);
             }
         }
         return map;

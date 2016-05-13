@@ -11,8 +11,12 @@ import java.util.Date;
  */
 @ToString
 public class CourseCategory implements Serializable {
+
+    public static Integer DEFAULT_SORT = 100;
+
     private Long id;
     private String categoryName;
+    private Long merchantCategoryId;
     private Long merchantId;
     private Integer sort;
     private Boolean isDelete;
@@ -33,6 +37,14 @@ public class CourseCategory implements Serializable {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public Long getMerchantCategoryId() {
+        return merchantCategoryId;
+    }
+
+    public void setMerchantCategoryId(Long merchantCategoryId) {
+        this.merchantCategoryId = merchantCategoryId;
     }
 
     public Long getMerchantId() {

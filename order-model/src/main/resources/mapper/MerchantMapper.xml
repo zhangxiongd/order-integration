@@ -6,14 +6,15 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="merchant_name" property="merchantName" jdbcType="VARCHAR"/>
         <result column="short_name" property="shortName" jdbcType="VARCHAR"/>
-        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="merchant_img" property="merchantImg" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="TINYINT"/>
         <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
         <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
         <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,merchant_name,short_name,password,is_delete,created_at,updated_at
+        id,merchant_name,short_name,merchant_img,sort,is_delete,created_at,updated_at
     </sql>
 
     <select id="getMerchantById" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -25,6 +26,5 @@
         id = #{id,jdbcType=BIGINT}
         and is_delete = 0
     </select>
-
 
 </mapper>

@@ -10,7 +10,10 @@ import java.util.Date;
 public class MenuCourse implements Serializable {
     private Long id;
     private Long courseId;
-    private String outTradeNo;
+    private String courseName;
+    private String menuOrderNo;
+    private Long merchantCategoryId;
+    private String merchantCategoryName;
     private Long merchantId;
     private Long memberId;
     //销售价格快照
@@ -29,11 +32,11 @@ public class MenuCourse implements Serializable {
     public MenuCourse() {
     }
 
-    public MenuCourse(Long courseId, String outTradeNo, Long merchantId,
+    public MenuCourse(Long courseId, String menuOrderNo, Long merchantId,
                       Long memberId, BigDecimal salePrice, BigDecimal price,
                       Integer count) {
         this.courseId = courseId;
-        this.outTradeNo = outTradeNo;
+        this.menuOrderNo = menuOrderNo;
         this.merchantId = merchantId;
         this.memberId = memberId;
         this.salePrice = salePrice;
@@ -60,12 +63,20 @@ public class MenuCourse implements Serializable {
         this.courseId = courseId;
     }
 
-    public String getOutTradeNo() {
-        return outTradeNo;
+    public String getMenuOrderNo() {
+        return menuOrderNo;
     }
 
-    public void setOutTradeNo(String outTradeNo) {
-        this.outTradeNo = outTradeNo;
+    public void setMenuOrderNo(String menuOrderNo) {
+        this.menuOrderNo = menuOrderNo;
+    }
+
+    public Long getMerchantCategoryId() {
+        return merchantCategoryId;
+    }
+
+    public void setMerchantCategoryId(Long merchantCategoryId) {
+        this.merchantCategoryId = merchantCategoryId;
     }
 
     public Long getMerchantId() {
@@ -108,6 +119,14 @@ public class MenuCourse implements Serializable {
         this.count = count;
     }
 
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
     public Boolean getIsDelete() {
         return isDelete;
     }
@@ -132,12 +151,20 @@ public class MenuCourse implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public String getMerchantCategoryName() {
+        return merchantCategoryName;
+    }
+
+    public void setMerchantCategoryName(String merchantCategoryName) {
+        this.merchantCategoryName = merchantCategoryName;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("MenuCourse{");
         sb.append("id=").append(id);
         sb.append(", courseId=").append(courseId);
-        sb.append(", outTradeNo='").append(outTradeNo).append('\'');
+        sb.append(", menuOrderNo='").append(menuOrderNo).append('\'');
         sb.append(", merchantId=").append(merchantId);
         sb.append(", memberId=").append(memberId);
         sb.append(", salePrice=").append(salePrice);

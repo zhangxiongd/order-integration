@@ -10,7 +10,20 @@
     <context:property-placeholder location="classpath:config/jdbc.properties,
             config/config.properties, classpath:config/redis.properties"/>
 
-    <context:component-scan base-package="me.smart.order.service,me.smart.order.weixin"/>
+    <context:component-scan base-package="me.smart.order.service,me.smart.order.weixin,me.smart.order.aop"/>
     <import resource="classpath:spring/spring-dao.xml"/>
 
+    <bean id="menuServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>me.smart.order.service.MenuService</value>
+        </property>
+        <property name="target">
+            <ref bean="menuService"/>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>menuServiceAdvisor</value>
+            </list>
+        </property>
+    </bean>
 </beans>

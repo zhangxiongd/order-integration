@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.smart.order.dao.MerchantAccountMapper">
+
+    <resultMap id="BaseResultMap" type="me.smart.order.model.MerchantAccount">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="merchant_id" property="merchantId" jdbcType="BIGINT"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="account_img" property="accountImg" jdbcType="VARCHAR"/>
+        <result column="login_password" property="loginPassword" jdbcType="VARCHAR"/>
+        <result column="login_salt" property="loginSalt" jdbcType="VARCHAR"/>
+        <result column="trade_password" property="tradePassword" jdbcType="VARCHAR"/>
+        <result column="trade_salt" property="tradeSalt" jdbcType="VARCHAR"/>
+        <result column="is_admin" property="isAdmin" jdbcType="TINYINT"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+        <result column="last_login_at" property="lastLoginAt" jdbcType="TIMESTAMP"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,merchant_id,mobile,real_name,email,account_img,login_password,login_salt,
+        trade_password,trade_salt,is_admin,is_delete,last_login_at,created_at,updated_at
+    </sql>
+    
+
+</mapper>

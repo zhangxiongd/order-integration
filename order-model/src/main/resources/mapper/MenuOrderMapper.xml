@@ -15,7 +15,7 @@
         <result column="discount_comment" property="discountComment" jdbcType="VARCHAR"/>
         <result column="order_status" property="orderStatus" jdbcType="TINYINT"/>
         <result column="table_no" property="tableNo" jdbcType="VARCHAR"/>
-        <result column="people_number" property="peopleNumber" jdbcType="TINYINT"/>
+        <result column="header_count" property="headerCount" jdbcType="TINYINT"/>
         <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
         <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
         <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
@@ -23,7 +23,7 @@
 
     <sql id="Base_Column_List">
         id,merchant_id,member_id,menu_order_no,total_amount,payAmount,discount_amount,discount_type,
-        discountC_comment,order_status,table_no,is_delete,created_at,updated_at,people_number
+        discountC_comment,order_status,table_no,is_delete,created_at,updated_at,header_count
     </sql>
 
     <insert id="insert" parameterType="me.smart.order.model.MenuOrder" useGeneratedKeys="true" keyProperty="id">
@@ -71,8 +71,8 @@
             <if test="updatedAt != null">
                 updated_at,
             </if>
-            <if test="peopleNumber != null">
-                people_number,
+            <if test="headerCount != null">
+                header_count,
             </if>
 
         </trim>
@@ -119,8 +119,8 @@
             <if test="updatedAt != null">
                 sysdate(),
             </if>
-            <if test="peopleNumber != null">
-                #{peopleNumber,jdbcType=TINYINT},
+            <if test="headerCount != null">
+                #{headerCount,jdbcType=TINYINT},
             </if>
         </trim>
     </insert>

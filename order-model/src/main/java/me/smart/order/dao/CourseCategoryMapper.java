@@ -10,4 +10,29 @@ import java.util.List;
  */
 public interface CourseCategoryMapper {
     List<CourseCategory> getCourseCategoryListByMerchantId(@Param("merchantId") Long merchantId);
+
+    CourseCategory getById(@Param("id") Long id);
+
+    CourseCategory getByMerchantIdAndName(@Param("merchantId") Long merchantId, @Param("name") String name);
+
+    /**
+     * @param courseCategory
+     * @return
+     */
+    Long insert(CourseCategory courseCategory);
+
+    /**
+     * 将分类置失效
+     *
+     * @param id
+     * @return
+     */
+    int updateIsDelete(@Param("id") Long id);
+
+    /**
+     * 更新类名
+     *
+     * @return
+     */
+    int updateCategoryName(CourseCategory courseCategory);
 }

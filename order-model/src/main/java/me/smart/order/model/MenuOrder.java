@@ -45,7 +45,7 @@ public class MenuOrder implements Serializable {
     /**
      * 用餐人数
      */
-    private Integer peopleNumber;
+    private Integer headerCount;
 
 
     private Boolean isDelete;
@@ -61,7 +61,7 @@ public class MenuOrder implements Serializable {
 
 
     public MenuOrder(Long memberId, Long merchantId, String remark, String menuOrderNo,
-                     BigDecimal totalAmount, BigDecimal payAmount, String tableNo, Integer peopleNumber) {
+                     BigDecimal totalAmount, BigDecimal payAmount, String tableNo, Integer headerCount) {
         this.memberId = memberId;
         this.merchantId = merchantId;
         this.remark = remark;
@@ -69,11 +69,11 @@ public class MenuOrder implements Serializable {
         this.totalAmount = totalAmount;
         this.payAmount = payAmount;
         this.tableNo = tableNo;
-        this.orderStatus = MenuOrderStatus.PENDING.getStatus();
+        this.orderStatus = MenuOrderStatus.INITIALIZATION.getStatus();
         this.isDelete = false;
         this.createdAt = new Date();
         this.updatedAt = new Date();
-        this.peopleNumber = peopleNumber;
+        this.headerCount = headerCount;
     }
 
     public Long getId() {
@@ -172,12 +172,12 @@ public class MenuOrder implements Serializable {
         this.tableNo = tableNo;
     }
 
-    public Integer getPeopleNumber() {
-        return peopleNumber;
+    public Integer getHeaderCount() {
+        return headerCount;
     }
 
-    public void setPeopleNumber(Integer peopleNumber) {
-        this.peopleNumber = peopleNumber;
+    public void setHeaderCount(Integer headerCount) {
+        this.headerCount = headerCount;
     }
 
     public Boolean getIsDelete() {
@@ -219,6 +219,7 @@ public class MenuOrder implements Serializable {
         sb.append(", orderStatus=").append(orderStatus);
         sb.append(", remark=").append(remark);
         sb.append(", tableNo=").append(tableNo);
+        sb.append(", headerCount=").append(headerCount);
         sb.append(", isDelete=").append(isDelete);
         sb.append(", createdAt=").append(createdAt);
         sb.append(", updatedAt=").append(updatedAt);

@@ -4,6 +4,7 @@ import me.smart.order.api.PaymentInfo;
 import me.smart.order.api.Result;
 import me.smart.order.enums.PaymentWay;
 import me.smart.order.enums.TradeType;
+import me.smart.order.exception.BusinessException;
 import me.smart.order.model.MenuOrder;
 import me.smart.order.model.PaymentOrder;
 import me.smart.order.model.PaymentRecord;
@@ -13,9 +14,9 @@ import me.smart.order.model.PaymentRecord;
  */
 public interface PaymentService {
 
-    public PaymentOrder placeOrder(MenuOrder menuOrder) throws Exception;
+    public PaymentOrder placeOrder(MenuOrder menuOrder) throws BusinessException;
 
-    public Result transactByOrder(PaymentOrder paymentOrder) throws Exception;
+    public Result transactByOrder(PaymentOrder paymentOrder) throws BusinessException;
 
     public void updatePaymentRecordSuccess(PaymentRecord PaymentRecord);
 

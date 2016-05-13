@@ -1,8 +1,8 @@
 package me.smart.order.service.impl;
 
-import me.smart.order.api.CategoryInfo;
+import me.smart.order.api.CategoryCourseInfo;
 import me.smart.order.api.CourseInfo;
-import me.smart.order.api.Response.MerchantMenuResponse;
+import me.smart.order.api.member.Response.MerchantMenuResponse;
 import me.smart.order.dao.CourseCategoryMapper;
 import me.smart.order.dao.CourseMapper;
 import me.smart.order.dao.MerchantMapper;
@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class MenuServiceImpl implements MenuService {
         logger.info("MenuServiceImpl.getMerchantMenuList 根据merchantId获取此餐厅的菜单,merchantId={}", merchantId);
         Merchant merchant = merchantMapper.getMerchantById(merchantId);
         if (merchant == null) {
-            throw new BusinessException(ResultCode.MERCHANT_ERROR);
+            throw new BusinessException(ResultCode.MERCHANT_NOT_EXIST_ERROR);
         }
         //首先获取此餐厅的菜类别
         List<CourseCategory> categoryListFromDB = courseCategoryMapper.getCourseCategoryListByMerchantId(merchantId);
@@ -54,31 +55,29 @@ public class MenuServiceImpl implements MenuService {
         result.setMerchantName(merchant.getMerchantName());
 
         List<CourseInfo> courseInfoList = new ArrayList<CourseInfo>();
-        List<CategoryInfo> categoryInfoList = new ArrayList<CategoryInfo>(categoryListFromDB.size());
+        List<CategoryCourseInfo> categoryCourseInfoList = new ArrayList<CategoryCourseInfo>(categoryListFromDB.size());
         CourseInfo courseInfo = null;
         List<Course> courseList = null;
-        CategoryInfo categoryInfo = null;
+        CategoryCourseInfo categoryCourseInfo = null;
         for (CourseCategory category : categoryListFromDB) {
-            categoryInfo = new CategoryInfo();
-            categoryInfo.setCategoryId(category.getId());
-            categoryInfo.setCategoryName(category.getCategoryName());
+            categoryCourseInfo = new CategoryCourseInfo();
+            categoryCourseInfo.setCategoryId(category.getId());
+            categoryCourseInfo.setCategoryName(category.getCategoryName());
             courseList = courseMapper.getCourseListByMerchantAndCategory(merchantId, category.getId());
             for (Course course : courseList) {
                 courseInfo = new CourseInfo();
                 courseInfo.setCourseId(course.getId());
                 courseInfo.setCourseName(course.getName());
                 courseInfo.setCourseImg(course.getCourseImg());
-                courseInfo.setMemberPrice(course.getMemberPrice().intValue());
-                courseInfo.setSalePrice(course.getSalePrice().intValue());
-                courseInfo.setSpecialPrice(course.getSpecialPrice().intValue());
+                courseInfo.setPrice(course.getSalePrice().divide(new BigDecimal(100)).toString());
                 //todo 设置销量
 //                courseInfo.setVolume();
                 courseInfoList.add(courseInfo);
             }
-            categoryInfo.setCourseInfoList(courseInfoList);
-            categoryInfoList.add(categoryInfo);
+            categoryCourseInfo.setCourseInfoList(courseInfoList);
+            categoryCourseInfoList.add(categoryCourseInfo);
         }
-        result.setCategoryList(categoryInfoList);
+        result.setCategoryList(categoryCourseInfoList);
         return result;
     }
 }

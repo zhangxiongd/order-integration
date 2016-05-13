@@ -10,7 +10,6 @@ import java.util.Map;
  * Created by zhangxiong on 15/12/23.
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-
 public class Result<T> {
 
     public static final Result SUCCESS_RESULT = new Result();

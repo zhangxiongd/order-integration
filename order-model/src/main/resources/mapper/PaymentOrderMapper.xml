@@ -6,7 +6,7 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="merchant_id" property="merchantId" jdbcType="BIGINT"/>
         <result column="memberId" property="memberId" jdbcType="BIGINT"/>
-        <result column="outTradeNo" property="outTradeNo" jdbcType="VARCHAR"/>
+        <result column="menuOrderNo" property="menuOrderNo" jdbcType="VARCHAR"/>
         <result column="menu_order_no" property="menuOrderNo" jdbcType="VARCHAR"/>
         <result column="total_amount" property="totalAmount" jdbcType="DECIMAL"/>
         <result column="order_name" property="orderName" jdbcType="VARCHAR"/>
@@ -36,8 +36,8 @@
             <if test="memberId != null">
                 memberId,
             </if>
-            <if test="outTradeNo != null">
-                outTradeNo,
+            <if test="menuOrderNo != null">
+                menuOrderNo,
             </if>
             <if test="menuOrderNo != null">
                 menu_order_no,
@@ -86,8 +86,8 @@
             <if test="memberId != null">
                 #{memberId,jdbcType=BIGINT}
             </if>
-            <if test="outTradeNo != null">
-                #{outTradeNo,jdbcType=VARCHAR}
+            <if test="menuOrderNo != null">
+                #{menuOrderNo,jdbcType=VARCHAR}
             </if>
             <if test="menuOrderNo != null">
                 #{menuOrderNo,jdbcType=VARCHAR}

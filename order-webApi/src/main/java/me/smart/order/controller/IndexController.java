@@ -28,7 +28,7 @@ public class IndexController {
 
 
     @Resource
-    private MerchantMapper merchantMapper;
+    private MerchantMapper merchantHashtableMapper;
 
     @RequestMapping(value = "/check")
     @ResponseBody
@@ -77,4 +77,6 @@ public class IndexController {
         }
         return map;
     }
+
+
 }

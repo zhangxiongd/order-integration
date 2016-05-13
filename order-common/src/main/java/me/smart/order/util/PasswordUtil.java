@@ -57,14 +57,7 @@ public class PasswordUtil {
     public static void main(String[] args) {
         String salt = PasswordUtil.createSalt();
         System.out.println("salt:" + salt);
-        String password = "289765";
-        String saltAndPassword = salt + password;
-        String pwd = PasswordUtil.createHash(saltAndPassword, PasswordUtil.SHA_256);
 
-        System.out.println("pwd:" + pwd);
-        System.out.println(pwd.length());
-
-        System.out.println(PasswordUtil.createHash(saltAndPassword, PasswordUtil.SHA_256) + ":" + pwd);
     }
 
 }

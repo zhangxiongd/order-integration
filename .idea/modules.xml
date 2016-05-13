@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/order-api/order-api.iml" filepath="$PROJECT_DIR$/order-api/order-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-common/order-common.iml" filepath="$PROJECT_DIR$/order-common/order-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-console/order-console.iml" filepath="$PROJECT_DIR$/order-console/order-console.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-integration.iml" filepath="$PROJECT_DIR$/order-integration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-merchant/order-merchant.iml" filepath="$PROJECT_DIR$/order-merchant/order-merchant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-model/order-model.iml" filepath="$PROJECT_DIR$/order-model/order-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-service/order-service.iml" filepath="$PROJECT_DIR$/order-service/order-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-webApi/order-webApi.iml" filepath="$PROJECT_DIR$/order-webApi/order-webApi.iml" />
+    </modules>
+  </component>
+</project>

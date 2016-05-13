@@ -10,9 +10,10 @@ public class Merchant implements Serializable {
     private Long id;
     private String merchantName;
     private String shortName;
-    private String password;
     private String merchantImg;
-    private Integer merchantSort;
+    private Integer sort;
+    private String address;
+    private String merchantDesc;
     private Boolean isDelete;
     private Date createdAt;
     private Date updatedAt;
@@ -41,14 +42,6 @@ public class Merchant implements Serializable {
         this.shortName = shortName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getMerchantImg() {
         return merchantImg;
     }
@@ -57,12 +50,28 @@ public class Merchant implements Serializable {
         this.merchantImg = merchantImg;
     }
 
-    public Integer getMerchantSort() {
-        return merchantSort;
+    public Integer getSort() {
+        return sort;
     }
 
-    public void setMerchantSort(Integer merchantSort) {
-        this.merchantSort = merchantSort;
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getMerchantDesc() {
+        return merchantDesc;
+    }
+
+    public void setMerchantDesc(String merchantDesc) {
+        this.merchantDesc = merchantDesc;
     }
 
     public Boolean getIsDelete() {
@@ -96,7 +105,6 @@ public class Merchant implements Serializable {
         sb.append("id=" + id);
         sb.append(", merchantName=" + merchantName);
         sb.append(", shortName=" + shortName);
-        sb.append(", merchantSort=" + merchantSort);
         sb.append(", isDelete=" + isDelete);
         sb.append("}");
         return sb.toString();

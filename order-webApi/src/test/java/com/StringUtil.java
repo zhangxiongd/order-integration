@@ -1,5 +1,7 @@
 package com;
 
+import me.smart.order.model.Member;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,8 +44,69 @@ public class StringUtil {
 
 
     public static void main(String[] args) {
-        System.out.println(dup("abcdabc", "abcdefgh"));
+//        System.out.println(dup("abcdabc", "abcdefgh"));
 //        System.out.println("bcdefgh".contains("bcd"));
+
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(3);
+        list.add(6);
+        System.out.println(list.toString());
+        for (Integer i : list) {
+            if (i == 3) {
+                i = 3 * 3;
+            }
+        }
+        System.out.println(list.toString());
+
+
+        List<Member> list1 = new ArrayList<>();
+        Member member1 = new Member();
+        member1.setName("zhangxiong");
+        member1.setCity("shanghai");
+        list1.add(member1);
+        System.out.println(list1);
+        for (Member member : list1) {
+            if (member.getName().equals("zhangxiong")) {
+                member.setCity("changsha");
+            }
+        }
+        System.out.println(list1);
+
+
+        List<String> list2 = new ArrayList<>();
+        list2.add("zhangxiong");
+        list2.add("chenqin");
+        for (String str : list2) {
+            if (str.equals("chenqin")) {
+                str = "love chenqin";
+            }
+        }
+        System.out.println(list2.toString());
+
+
+        Integer[] array = new Integer[]{1, 3, 5, 63, 8};
+        for (Integer i : array) {
+            if (i == 5) {
+                i = 5 * 2;
+            }
+        }
+        for (Integer i : array) {
+            System.out.println(i);
+        }
+
+
+        /**
+         * lamb
+         */
+        list2.stream().forEach(item -> {
+            if (item.equals("zhangxiong")) {
+                System.out.println("====");
+                item = "123456";
+            }
+        });
+        System.out.println(list2);
+
     }
 
     public static String dup(String first, String second) {

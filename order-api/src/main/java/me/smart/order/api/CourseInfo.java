@@ -10,12 +10,15 @@ public class CourseInfo {
     private Long courseId;
     private String courseName;
     //单位分
-    private int salePrice;
-    private int specialPrice;
-    private int memberPrice;
+    private String price;
+    //    private int specialPrice;
+//    private int memberPrice;
     private String courseImg;
     //销量
     private int volume;
+
+    //上架状态
+    private int isShelf;
 
     public Long getCourseId() {
         return courseId;
@@ -33,29 +36,28 @@ public class CourseInfo {
         this.courseName = courseName;
     }
 
-    public int getSalePrice() {
-        return salePrice;
+    public String getPrice() {
+        return price;
     }
 
-    public void setSalePrice(int salePrice) {
-        this.salePrice = salePrice;
+    public void setPrice(String price) {
+        this.price = price;
     }
-
-    public int getSpecialPrice() {
-        return specialPrice;
-    }
-
-    public void setSpecialPrice(int specialPrice) {
-        this.specialPrice = specialPrice;
-    }
-
-    public int getMemberPrice() {
-        return memberPrice;
-    }
-
-    public void setMemberPrice(int memberPrice) {
-        this.memberPrice = memberPrice;
-    }
+//    public int getSpecialPrice() {
+//        return specialPrice;
+//    }
+//
+//    public void setSpecialPrice(int specialPrice) {
+//        this.specialPrice = specialPrice;
+//    }
+//
+//    public int getMemberPrice() {
+//        return memberPrice;
+//    }
+//
+//    public void setMemberPrice(int memberPrice) {
+//        this.memberPrice = memberPrice;
+//    }
 
     public String getCourseImg() {
         return courseImg;
@@ -73,4 +75,11 @@ public class CourseInfo {
         this.volume = volume;
     }
 
+    public int getIsShelf() {
+        return isShelf;
+    }
+
+    public void setIsShelf(int isShelf) {
+        this.isShelf = isShelf;
+    }
 }

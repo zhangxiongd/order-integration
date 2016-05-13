@@ -7,4 +7,6 @@ import me.smart.order.model.Merchant;
  */
 public interface MerchantMapper {
     Merchant getMerchantById(Long id);
+
+    Merchant insert(Merchant merchant);
 }

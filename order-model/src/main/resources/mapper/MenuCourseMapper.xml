@@ -6,7 +6,8 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="course_id" property="courseId" jdbcType="BIGINT"/>
         <result column="member_id" property="memberId" jdbcType="BIGINT"/>
-        <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR"/>
+        <result column="merchant_category_id" property="merchantCategoryId" jdbcType="BIGINT"/>
+        <result column="out_trade_no" property="menuOrderNo" jdbcType="VARCHAR"/>
         <result column="total_amount" property="totalAmount" jdbcType="DECIMAL"/>
         <result column="payAmount" property="payAmount" jdbcType="DECIMAL"/>
         <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL"/>
@@ -20,9 +21,9 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,merchant_id,member_id,out_trade_no,total_amount,payAmount,discount_amount,discount_type,
+        id,merchant_id,member_id,merchant_category_id,out_trade_no,total_amount,payAmount,discount_amount,discount_type,
         discountC_comment,order_status,table_no,is_delete,created_at,updated_at
     </sql>
-
+    
 
 </mapper>

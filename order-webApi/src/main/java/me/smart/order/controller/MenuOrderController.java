@@ -1,8 +1,9 @@
 package me.smart.order.controller;
 
-import me.smart.order.api.Request.MenuOrderRequest;
-import me.smart.order.api.Response.MenuOrderResponse;
 import me.smart.order.api.Result;
+import me.smart.order.api.member.Request.MenuOrderRequest;
+import me.smart.order.api.member.Response.MenuOrderResponse;
+import me.smart.order.api.member.Response.PayResult;
 import me.smart.order.enums.MenuOrderStatus;
 import me.smart.order.model.MenuOrder;
 import me.smart.order.service.MenuOrderService;
@@ -34,19 +35,24 @@ public class MenuOrderController extends BaseController {
 
     @RequestMapping(value = "/order", method = RequestMethod.POST)
     @ResponseBody
-    public Result<MenuOrderResponse> order(@RequestBody MenuOrderRequest menuOrderRequest) {
+    public Result order(@RequestBody MenuOrderRequest menuOrderRequest) {
         logger.info("MenuOrderController order requestParam = {}", menuOrderRequest);
         //todo 验签
         //todo 防止重复下单
         try {
-            MenuOrder menuOrder = menuOrderService.transMenuOrder(menuOrderRequest);
-            MenuOrderResponse menuOrderResponse = convertToResponse(menuOrderRequest, menuOrder);
-            return Result.createResult(menuOrderResponse);
+            Result<PayResult> result = menuOrderService.transMenuOrder(menuOrderRequest);
+//            MenuOrderResponse menuOrderResponse = convertToResponse(menuOrderRequest, menuOrder);
+            return result;
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return errorResult(e);
         }
 
+    }
+
+
+    private Result orderQuery() {
+        return null;
     }
 
     private MenuOrderResponse convertToResponse(MenuOrderRequest menuOrderRequest, MenuOrder menuOrder) {

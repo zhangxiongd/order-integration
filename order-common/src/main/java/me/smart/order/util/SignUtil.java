@@ -1,5 +1,7 @@
 package me.smart.order.util;
 
+import me.smart.order.enums.ErrorCode;
+import me.smart.order.exception.SystemException;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
@@ -102,12 +104,16 @@ public class SignUtil {
      * @param authKey
      * @return
      */
-    public static boolean checkSign(Map<String, Object> map, String authKey) {
+    public static boolean checkSign(Map<String, Object> map, String authKey) throws Exception {
+        if (StringUtils.isBlank(authKey)) {
+            throw new NullPointerException("authKey is null");
+        }
         String requestSign = String.valueOf(map.remove("sign"));
+        map.remove("signMethod");
         String sign = signMD5(map, authKey);
         if (!StringUtils.equals(sign, requestSign)) {
             logger.warn(" Check sign failed! calculated sign={} not equals requestSign={}", sign, requestSign);
-            return false;
+            throw new SystemException(ErrorCode.SIGN_ERROR);
         }
         return true;
     }

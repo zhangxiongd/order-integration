@@ -4,8 +4,12 @@ package me.smart.order.enums;
  * Created by zhangxiong on 16/3/13.
  */
 public enum MenuOrderStatus {
-    PENDING(0, "待处理"),
-    PROCESS(1, "烹饪中");
+    INITIALIZATION(0, "待支付"),
+    PENDING(1, "待处理"),
+    REJECT(2, "已拒单"),
+    CANCEL(3, "取消"),
+    PROCESS(4, "烹饪中"),
+    SUCCESS(5, "成功");
 
     private int status;
     private String statusDesc;

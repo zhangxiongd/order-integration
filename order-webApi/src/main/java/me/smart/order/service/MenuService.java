@@ -1,6 +1,6 @@
 package me.smart.order.service;
 
-import me.smart.order.api.Response.MerchantMenuResponse;
+import me.smart.order.api.member.Response.MerchantMenuResponse;
 import me.smart.order.exception.BusinessException;
 
 /**

@@ -31,7 +31,7 @@
 
     <!-- 能够事物管理使用注解的方式 -->
     <tx:annotation-driven transaction-manager="transactionManager"
-                          proxy-target-class="true"/>
+                          proxy-target-class="false"/>
 
     <!-- 声明一个事物管理 -->
     <bean id="transactionManager"

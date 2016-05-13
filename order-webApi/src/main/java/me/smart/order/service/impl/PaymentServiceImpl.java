@@ -1,8 +1,8 @@
 package me.smart.order.service.impl;
 
 import me.smart.order.api.PaymentInfo;
-import me.smart.order.api.Response.PayResult;
 import me.smart.order.api.Result;
+import me.smart.order.api.member.Response.PayResult;
 import me.smart.order.dao.MemberUnionMapper;
 import me.smart.order.dao.MerchantMapper;
 import me.smart.order.dao.PaymentOrderMapper;
@@ -55,11 +55,11 @@ public class PaymentServiceImpl implements PaymentService {
      */
     @Override
     @Transactional
-    public PaymentOrder placeOrder(MenuOrder menuOrder) throws Exception {
+    public PaymentOrder placeOrder(MenuOrder menuOrder) throws BusinessException {
         logger.info("开始落地支付订单。 menuOrder={}", menuOrder);
         Merchant merchant = merchantMapper.getMerchantById(menuOrder.getMemberId());
         if (merchant == null) {
-            throw new BusinessException(ResultCode.MERCHANT_ERROR, ResultCode.MERCHANT_ERROR.getDesc());
+            throw new BusinessException(ResultCode.MERCHANT_NOT_EXIST_ERROR, ResultCode.MERCHANT_NOT_EXIST_ERROR.getDesc());
         }
 
         //todo..生成订单号
@@ -82,7 +82,7 @@ public class PaymentServiceImpl implements PaymentService {
      */
     @Override
     @Transactional
-    public Result transactByOrder(PaymentOrder paymentOrder) throws Exception {
+    public Result transactByOrder(PaymentOrder paymentOrder) throws BusinessException {
         logger.info("开始落地支付流水, paymentOrder={}", paymentOrder);
         //获取服务号的openId(一定要是服务号的openId 不然微信支付失败)
         MemberUnion memberUnion = memberUnionMapper.selectByMemberIdAndSource(paymentOrder.getMemberId(),
@@ -126,7 +126,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void updatePaymentRecordSuccess(PaymentRecord paymentRecord) {
         logger.info("支付流水成功更新记录,paymentRecord={}", paymentRecord);
-        
+
     }
 
     /**

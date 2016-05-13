@@ -23,5 +23,27 @@ public class RandomStringGenerator {
         }
         return sb.toString();
     }
-    
+
+
+    /**
+     * 生成短信
+     *
+     * @param length
+     * @return
+     */
+    public static String getVerifyCode() {
+        String base = "01234567899876543210";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < 4; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        String nowTime = String.valueOf(System.currentTimeMillis());
+        for (int i = 0; i < 2; i++) {
+            char number = nowTime.charAt(random.nextInt(nowTime.length()));
+            sb.append(number);
+        }
+        return sb.toString();
+    }
 }

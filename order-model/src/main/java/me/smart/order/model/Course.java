@@ -13,6 +13,8 @@ import java.util.Date;
 @ToString
 public class Course implements Serializable {
 
+    public static Integer DEFAULT_SORT = 100;
+
     private Long id;
 
     //菜名
@@ -23,6 +25,7 @@ public class Course implements Serializable {
 
     //所属分类
     private Long categoryId;
+
 
     //图像地址
     private String courseImg;
@@ -36,8 +39,8 @@ public class Course implements Serializable {
     //会员价
     private BigDecimal memberPrice;
 
-    //是否上下架  //todo 此字段是否必须
-    private Boolean isOn;
+    //是否上下架
+    private Boolean isShelf;
 
     private Integer sort;
 
@@ -114,6 +117,13 @@ public class Course implements Serializable {
         this.memberPrice = memberPrice;
     }
 
+    public Boolean getIsShelf() {
+        return isShelf;
+    }
+
+    public void setIsShelf(Boolean isShelf) {
+        this.isShelf = isShelf;
+    }
 
     public Integer getSort() {
         return sort;
