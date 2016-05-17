@@ -4,7 +4,7 @@ import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.AlibabaAliqinFcSmsNumSendRequest;
 import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
-import me.smart.order.util.JsonParser;
+import me.smart.order.util.JsonConvertUtils;
 
 import java.util.Map;
 
@@ -28,7 +28,7 @@ public class AliMessageConstant {
         AlibabaAliqinFcSmsNumSendResponse rsp = null;
         try {
             rsp = client.execute(req);
-            Map<String, Object> map = JsonParser.convertToMap(rsp.getBody());
+            Map<String, Object> map = JsonConvertUtils.convertToMap(rsp.getBody());
             if (map.get("alibaba_aliqin_fc_sms_num_send_response") != null) {
                 return true;
             } else {

@@ -1,8 +1,16 @@
 package me.smart.order.service.impl;
 
 import me.smart.order.api.Result;
-import me.smart.order.api.merchant.request.*;
-import me.smart.order.api.merchant.response.*;
+import me.smart.order.api.merchant.request.ForgetPasswordRequest;
+import me.smart.order.api.merchant.request.LoginRequest;
+import me.smart.order.api.merchant.request.ModifyRequest;
+import me.smart.order.api.merchant.request.RegisterRequest;
+import me.smart.order.api.merchant.request.TokenRequest;
+import me.smart.order.api.merchant.response.ForgetPasswordResponse;
+import me.smart.order.api.merchant.response.LoginResponse;
+import me.smart.order.api.merchant.response.ModifyResponse;
+import me.smart.order.api.merchant.response.RegisterResponse;
+import me.smart.order.api.merchant.response.TokenResponse;
 import me.smart.order.constant.CommonConstant;
 import me.smart.order.constant.RedisCacheConstant;
 import me.smart.order.dao.MerchantAccountMapper;
@@ -17,7 +25,7 @@ import me.smart.order.model.Merchant;
 import me.smart.order.model.MerchantAccount;
 import me.smart.order.redis.RedisService;
 import me.smart.order.service.MerchantAccountService;
-import me.smart.order.util.JsonParser;
+import me.smart.order.util.JsonConvertUtils;
 import me.smart.order.util.PasswordUtil;
 import me.smart.order.util.SignUtil;
 import org.apache.commons.lang.StringUtils;
@@ -30,7 +38,14 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.Map;
 
-import static me.smart.order.enums.ResultCode.*;
+import static me.smart.order.enums.ResultCode.MERCHANT_ACCOUNT_EXISTED_ERROR;
+import static me.smart.order.enums.ResultCode.MERCHANT_ACCOUNT_NOT_EXIST_ERROR;
+import static me.smart.order.enums.ResultCode.MERCHANT_ACCOUNT_PASSWORD_ERROR;
+import static me.smart.order.enums.ResultCode.MERCHANT_NOT_EXIST_ERROR;
+import static me.smart.order.enums.ResultCode.OPERATION_VALID;
+import static me.smart.order.enums.ResultCode.REDIS_KEY_ERROR;
+import static me.smart.order.enums.ResultCode.SQL_ERROR;
+import static me.smart.order.enums.ResultCode.SYSTEM_ERROR;
 
 /**
  * Created by zhangxiong on 16/4/1.
@@ -50,7 +65,7 @@ public class MerchantAccountServiceImpl implements MerchantAccountService {
     @Transactional
     public Result<RegisterResponse> register(RegisterRequest request) throws Exception {
         request.validate();
-        Map<String, Object> signMap = JsonParser.objectToMap(request);
+        Map<String, Object> signMap = JsonConvertUtils.objectToMap(request);
         //从redis获取authKey
         String key = redisService.getKey(request.getMobile(), TokenType.REGISTER_TOKEN.getLable());
         String authKey = redisService.get(key);
@@ -75,7 +90,7 @@ public class MerchantAccountServiceImpl implements MerchantAccountService {
     @Override
     public Result<LoginResponse> login(LoginRequest request) throws Exception {
         request.validate();
-        Map<String, Object> signMap = JsonParser.objectToMap(request);
+        Map<String, Object> signMap = JsonConvertUtils.objectToMap(request);
         //获取加密key 然后再验签
         String key = redisService.getKey(request.getMobile(), TokenType.LOGIN_TOKEN.getLable());
         String authKey = redisService.get(key);
@@ -119,7 +134,7 @@ public class MerchantAccountServiceImpl implements MerchantAccountService {
     @Override
     public Result<TokenResponse> token(TokenRequest request) throws Exception {
         request.validate();
-        Map<String, Object> signMap = JsonParser.objectToMap(request);
+        Map<String, Object> signMap = JsonConvertUtils.objectToMap(request);
         //获取加密key 然后再验签
         String authKey = CommonConstant.getAuthKey(request.getSource());
         SignUtil.checkSign(signMap, authKey);
@@ -153,7 +168,7 @@ public class MerchantAccountServiceImpl implements MerchantAccountService {
     public Result<ModifyResponse> modify(ModifyRequest request) throws Exception {
         request.validate();
         //验签
-        Map<String, Object> signMap = JsonParser.objectToMap(request);
+        Map<String, Object> signMap = JsonConvertUtils.objectToMap(request);
         //获取加密key 然后再验签
         String key = redisService.getKey(request.getMobile(), TokenType.MODIFY_PWD_TOKEN.getLable());
         String authKey = redisService.get(key);
@@ -198,7 +213,7 @@ public class MerchantAccountServiceImpl implements MerchantAccountService {
     @Override
     public Result<ForgetPasswordResponse> forgetPassword(ForgetPasswordRequest request) throws Exception {
         request.validate();
-        Map<String, Object> signMap = JsonParser.objectToMap(request);
+        Map<String, Object> signMap = JsonConvertUtils.objectToMap(request);
         //获取加密key 然后再验签
         String key = redisService.getKey(request.getMobile(), TokenType.FORGET_PWD_TOKEN.getLable());
         String authKey = redisService.get(key);

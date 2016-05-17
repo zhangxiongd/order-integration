@@ -61,6 +61,7 @@ public enum ResultCode {
     COURSE_EXISTED_ERROR("4007", "菜品已存在"),
     COURSE_NOT_EXIST_ERROR("4008", "菜品不存在"),
     CATEGORY_NOT_EXIST_ERROR("4009", "菜品分类不存在"),
+    ORDER_STATUS_ERROR("4010", "订单状态错误"),
 
 
     MERCHANT_COURSE_CATEGORY_EXISTED_ERROR("4010", "打印分类已存在"),

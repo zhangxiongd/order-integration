@@ -4,6 +4,7 @@ import me.smart.order.api.Result;
 import me.smart.order.api.merchant.request.MenuOrderDealRequest;
 import me.smart.order.api.merchant.request.MenuOrderListRequest;
 import me.smart.order.service.MerchantMenuOrderService;
+import me.smart.order.util.JsonConvertUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -27,9 +28,10 @@ public class MerchantMenuOrderController extends BaseController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    private Result list(@RequestBody MenuOrderListRequest request) {
-        logger.info("MerchantMenuOrderController list param={}", request);
+    private Result list(@RequestBody String msg) {
+        logger.info("MerchantMenuOrderController list param={}", msg);
         try {
+            MenuOrderListRequest request = JsonConvertUtils.toObject(msg, MenuOrderListRequest.class);
             request.validate();
             checkSign(request);
             return merchantMenuOrderService.list(request);

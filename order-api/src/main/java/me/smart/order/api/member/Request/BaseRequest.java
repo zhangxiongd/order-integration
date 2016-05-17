@@ -8,8 +8,14 @@ import org.apache.commons.lang.StringUtils;
  * Created by zhangxiong on 15/12/27.
  */
 public abstract class BaseRequest implements ValidateRequest {
-
     protected Integer LENGTH_10 = 10;
+    protected Integer LENGTH_11 = 11;
+    protected Integer LENGTH_20 = 20;
+    protected Integer LENGTH_64 = 64;
+
+    public BaseRequest() {
+    }
+
 
     protected String version;
 

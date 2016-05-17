@@ -13,8 +13,6 @@ public abstract class BaseRequest implements ValidateRequest {
     protected Integer LENGTH_20 = 20;
     protected Integer LENGTH_64 = 64;
 
-    public BaseRequest() {
-    }
 
     /**
      * 接口版本号

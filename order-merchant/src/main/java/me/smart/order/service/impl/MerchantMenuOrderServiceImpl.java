@@ -70,7 +70,7 @@ public class MerchantMenuOrderServiceImpl implements MerchantMenuOrderService {
     @Override
     public Result deal(MenuOrderDealRequest request) throws Exception {
         //根据菜单订单号获取订单
-        MenuOrder menuOrder = menuOrderMapper.selectByMenuOrderNO(request.getMenuOrderNo());
+        MenuOrder menuOrder = menuOrderMapper.selectByMenuOrderNO(Long.valueOf(request.getMerchantId()), request.getMenuOrderNo());
         if (menuOrder == null) {
             throw new BusinessException(ResultCode.ORDER_NOT_EXIST_ERROR);
         }

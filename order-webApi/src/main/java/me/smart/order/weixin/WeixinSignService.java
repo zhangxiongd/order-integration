@@ -3,7 +3,7 @@ package me.smart.order.weixin;
 import me.smart.order.constant.TenPayConstant;
 import me.smart.order.util.DateUtil;
 import me.smart.order.util.HttpCallService;
-import me.smart.order.util.JsonParser;
+import me.smart.order.util.JsonConvertUtils;
 import me.smart.order.util.RandomStringGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +68,7 @@ public class WeixinSignService {
         String accessUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + appId + "&secret=" + appScert;
         String accessResponse = httpCallService.get(accessUrl);
         //将返回的json串转为map
-        Map map = JsonParser.convertToMap(accessResponse);
+        Map map = JsonConvertUtils.convertToMap(accessResponse);
         String acceTokenValue = (String) map.get("access_token");
         int expires_in = Integer.valueOf(map.get("expires_in").toString());
         if (accestoken == null) {
@@ -81,7 +81,7 @@ public class WeixinSignService {
         String jsapiTickentUrl = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" + acceTokenValue + "&type=jsapi";
         HttpCallService httpCall1 = new HttpCallService();
         String jsapiResponse = httpCall1.get(jsapiTickentUrl);
-        Map jsapiMap = JsonParser.convertToMap(jsapiResponse);
+        Map jsapiMap = JsonConvertUtils.convertToMap(jsapiResponse);
         int errorCode = ((Integer) jsapiMap.get("errcode")).intValue();
         String errorMsg = (String) jsapiMap.get("errmsg");
         if (weixinJsapiTicket == null) {
@@ -124,7 +124,7 @@ public class WeixinSignService {
                 TenPayConstant.APP_ID + "&secret=" + TenPayConstant.APPSECRET + "&code=" + code + "&grant_type=authorization_code";
         String result = httpCallService.get(url);
         logger.info("获取用户openId={}", result);
-        return JsonParser.convertToMap(result);
+        return JsonConvertUtils.convertToMap(result);
     }
 
     /**
@@ -153,7 +153,7 @@ public class WeixinSignService {
         HttpCallService httpCallService = new HttpCallService();
         String result = httpCallService.get(url);
         logger.info("微信用户openId的用户信息,userInfo={}", result);
-        return JsonParser.convertToMap(result);
+        return JsonConvertUtils.convertToMap(result);
     }
 
 

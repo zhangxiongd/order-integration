@@ -6,14 +6,20 @@ import me.smart.order.api.member.Response.PayResult;
 import me.smart.order.dao.MemberUnionMapper;
 import me.smart.order.dao.MerchantMapper;
 import me.smart.order.dao.PaymentOrderMapper;
+import me.smart.order.dao.PaymentRecordMapper;
 import me.smart.order.enums.MemberUnionEnums;
 import me.smart.order.enums.PaymentWay;
 import me.smart.order.enums.ResultCode;
 import me.smart.order.enums.TradeType;
 import me.smart.order.exception.BusinessException;
 import me.smart.order.handler.ThirdPayHandler;
-import me.smart.order.model.*;
+import me.smart.order.model.MemberUnion;
+import me.smart.order.model.MenuOrder;
+import me.smart.order.model.Merchant;
+import me.smart.order.model.PaymentOrder;
+import me.smart.order.model.PaymentRecord;
 import me.smart.order.service.PaymentService;
+import me.smart.order.util.OrderNoUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,6 +54,10 @@ public class PaymentServiceImpl implements PaymentService {
     @Resource
     private MerchantMapper merchantMapper;
 
+    @Resource
+    private PaymentRecordMapper paymentRecordMapper;
+
+
     /**
      * 根据MenuOrder下支付订单
      * 下菜品订单和支付订单依然分开设计，分两步走
@@ -62,8 +73,7 @@ public class PaymentServiceImpl implements PaymentService {
             throw new BusinessException(ResultCode.MERCHANT_NOT_EXIST_ERROR, ResultCode.MERCHANT_NOT_EXIST_ERROR.getDesc());
         }
 
-        //todo..生成订单号
-        String outTradeNo = "";
+        String outTradeNo = OrderNoUtils.getOrderNo(menuOrder.getMemberId().toString());
         String orderName = merchant.getMerchantName() + "订单号 " + outTradeNo;
         PaymentOrder paymentOrder = new PaymentOrder(menuOrder.getMerchantId(), menuOrder.getMemberId(),
                 outTradeNo, menuOrder.getMenuOrderNo(), menuOrder.getTotalAmount(), orderName, payDeadLine);
@@ -172,5 +182,23 @@ public class PaymentServiceImpl implements PaymentService {
             throw new BusinessException(ResultCode.SYSTEM_ERROR, "未配置或不支持该支付方式");
         }
         return thirdPayHandler;
+    }
+
+
+    /**
+     * @param paymentOrder 要取消的支付订单
+     */
+    @Override
+    public void cancel(PaymentOrder paymentOrder) throws Exception {
+        logger.info("PaymentServiceImpl cancel menu_order_no={}, out_trade_no={}", paymentOrder.getMenuOrderNo(), paymentOrder.getOutTradeNo());
+
+
+        List<PaymentRecord> paymentRecordList = paymentRecordMapper.selectByMeIdAndNo(paymentOrder.getMemberId(), paymentOrder.getOutTradeNo());
+
+        ThirdPayHandler thirdPayHandler = getThirdPayHandler(PaymentWay.TEN_PAY);
+
+        thirdPayHandler.handleCancel(paymentOrder, paymentRecordList.get(0));
+
+
     }
 }

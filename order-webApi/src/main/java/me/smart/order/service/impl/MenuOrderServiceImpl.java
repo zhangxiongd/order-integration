@@ -2,17 +2,26 @@ package me.smart.order.service.impl;
 
 import me.smart.order.api.MenuOrderCourseInfo;
 import me.smart.order.api.Result;
+import me.smart.order.api.member.Request.CancelRequest;
 import me.smart.order.api.member.Request.MenuOrderRequest;
 import me.smart.order.api.member.Response.PayResult;
 import me.smart.order.dao.CourseCategoryMapper;
 import me.smart.order.dao.CourseMapper;
 import me.smart.order.dao.MenuCourseMapper;
 import me.smart.order.dao.MenuOrderMapper;
+import me.smart.order.dao.PaymentOrderMapper;
+import me.smart.order.enums.MenuOrderStatus;
+import me.smart.order.enums.PaymentOrderStatus;
 import me.smart.order.enums.ResultCode;
 import me.smart.order.exception.BusinessException;
-import me.smart.order.model.*;
+import me.smart.order.model.Course;
+import me.smart.order.model.CourseCategory;
+import me.smart.order.model.MenuCourse;
+import me.smart.order.model.MenuOrder;
+import me.smart.order.model.PaymentOrder;
 import me.smart.order.service.MenuOrderService;
 import me.smart.order.service.PaymentService;
+import me.smart.order.util.OrderNoUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -39,6 +48,8 @@ public class MenuOrderServiceImpl implements MenuOrderService {
     private PaymentService paymentService;
     @Resource
     private CourseCategoryMapper courseCategoryMapper;
+    @Resource
+    private PaymentOrderMapper paymentOrderMapper;
 
     /**
      * 根据菜品订单 下菜单＋支付订单＋请求第三方支付
@@ -55,8 +66,7 @@ public class MenuOrderServiceImpl implements MenuOrderService {
         List<MenuOrderCourseInfo> menuOrderCourseInfoList = menuOrderRequest.getMenuOrderCourseInfoList();
         logger.info("用户点单菜品数量 count={}", menuOrderCourseInfoList.size());
         BigDecimal totalAmount = null;
-        //todo..生成订单号
-        String menuOrderNo = "";
+        String menuOrderNo = OrderNoUtils.getOrderNo(menuOrderRequest.getMemberId());
         logger.info("落地菜品订单包含的菜品开始。。menuOrder={}", menuOrderNo);
         menuOrderCourseInfoList.stream().forEach(menuOrderCourseInfo -> {
             Course course = courseMapper.findById(menuOrderCourseInfo.getCourseId());
@@ -88,5 +98,26 @@ public class MenuOrderServiceImpl implements MenuOrderService {
         Result<PayResult> payResult = paymentService.transactByOrder(paymentOrder);
         logger.info("transact success result={}", payResult);
         return payResult;
+    }
+
+    @Override
+    public Result cancelMenuOrder(CancelRequest request) throws Exception {
+        MenuOrder menuOrder = menuOrderMapper.selectByMIdAndOrderNoAndMemberId(
+                Long.valueOf(request.getMemberId()), request.getMenuOrderNo(), Long.valueOf(request.getMerchantId()));
+        if (menuOrder == null) {
+            throw new BusinessException(ResultCode.ORDER_NOT_EXIST_ERROR);
+        }
+        if (MenuOrderStatus.PENDING.getStatus() != menuOrder.getOrderStatus()) {
+            throw new BusinessException(ResultCode.ORDER_STATUS_ERROR);
+        }
+        PaymentOrder paymentOrder = paymentOrderMapper.selectByMenuOrderNo(Long.valueOf(request.getMemberId()), request.getMenuOrderNo());
+        if (paymentOrder == null) {
+            throw new BusinessException(ResultCode.ORDER_NOT_EXIST_ERROR);
+        }
+        if (PaymentOrderStatus.SUCCESS.getStatus() != paymentOrder.getOrderStatus()) {
+            throw new BusinessException(ResultCode.ORDER_STATUS_ERROR);
+        }
+
+        return null;
     }
 }

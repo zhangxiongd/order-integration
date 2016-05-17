@@ -14,17 +14,19 @@ import me.smart.order.model.PaymentRecord;
  */
 public interface PaymentService {
 
-    public PaymentOrder placeOrder(MenuOrder menuOrder) throws BusinessException;
+    PaymentOrder placeOrder(MenuOrder menuOrder) throws BusinessException;
 
-    public Result transactByOrder(PaymentOrder paymentOrder) throws BusinessException;
+    Result transactByOrder(PaymentOrder paymentOrder) throws BusinessException;
 
-    public void updatePaymentRecordSuccess(PaymentRecord PaymentRecord);
+    void updatePaymentRecordSuccess(PaymentRecord PaymentRecord);
 
-    public void updatePaymentRecordNotPay(PaymentRecord PaymentRecord);
+    void updatePaymentRecordNotPay(PaymentRecord PaymentRecord);
 
-    public PaymentRecord selectByMidAndNoAndPayType(PaymentOrder paymentOrder, PaymentWay paymentWay, TradeType tradeType);
+    PaymentRecord selectByMidAndNoAndPayType(PaymentOrder paymentOrder, PaymentWay paymentWay, TradeType tradeType);
 
-    public PaymentRecord insertPaymentRecord(PaymentOrder paymentOrder, PaymentInfo paymentInfo);
+    PaymentRecord insertPaymentRecord(PaymentOrder paymentOrder, PaymentInfo paymentInfo);
+
+    void cancel(PaymentOrder paymentOrder) throws Exception;
 
 
 }

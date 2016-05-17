@@ -14,7 +14,10 @@ public interface MenuOrderMapper {
     List<MenuOrder> queryListByStatus(@Param("pageSize") int pageSize, @Param("pageNo") int pageNo,
                                       @Param("status") int status);
 
-    MenuOrder selectByMenuOrderNO(@Param("menuOrderNo") String menuOrderNo);
+    MenuOrder selectByMenuOrderNO(@Param("merchantId") Long merchantId, @Param("menuOrderNo") String menuOrderNo);
 
     int updateByStatus(@Param("menuOrderNo") String menuOrderNo, @Param("status") int status);
+
+    MenuOrder selectByMIdAndOrderNoAndMemberId(@Param("memberId") Long memberId, @Param("menuOrderNo") String menuOrderNo,
+                                               @Param("merchantId") Long merchantId);
 }

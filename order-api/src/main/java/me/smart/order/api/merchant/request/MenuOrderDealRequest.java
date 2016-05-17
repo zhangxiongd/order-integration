@@ -52,7 +52,7 @@ public class MenuOrderDealRequest extends BaseRequest {
 
     @Override
     public void validate() throws BusinessException {
-        super.validate(token, source, sign);
+        validateCommon();
         assertNotNull(merchantId, "餐厅id", null);
         assertNotNull(accountId, "帐号id", null);
         assertNotNull(menuOrderNo, "订单号", null);

@@ -1,8 +1,16 @@
 package me.smart.order.controller;
 
 import me.smart.order.api.Result;
-import me.smart.order.api.merchant.request.*;
+import me.smart.order.api.merchant.request.CategoryAddRequest;
+import me.smart.order.api.merchant.request.CategoryDeleteRequest;
+import me.smart.order.api.merchant.request.CategoryListRequest;
+import me.smart.order.api.merchant.request.CategoryUpdateRequest;
+import me.smart.order.api.merchant.request.CourseAddRequest;
+import me.smart.order.api.merchant.request.CourseListRequest;
+import me.smart.order.api.merchant.request.CourseShelfRequest;
+import me.smart.order.api.merchant.request.CourseUpdateRequest;
 import me.smart.order.service.MerchantCourseService;
+import me.smart.order.util.JsonConvertUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -31,9 +39,10 @@ public class MerchantCourseController extends BaseController {
      */
     @RequestMapping(value = "/category/add", method = RequestMethod.POST)
     @ResponseBody
-    public Result addCategory(@RequestBody CategoryAddRequest request) {
-        logger.info("MerchantCourseController addCategory request={}", request);
+    public Result addCategory(@RequestBody String msg) {
+        logger.info("MerchantCourseController addCategory request={}", msg);
         try {
+            CategoryAddRequest request = JsonConvertUtils.toObject(msg, CategoryAddRequest.class);
             request.validate();
             checkSign(request);
             return merchantCourseService.addCategory(request);
@@ -50,9 +59,10 @@ public class MerchantCourseController extends BaseController {
      */
     @RequestMapping(value = "/category/delete", method = RequestMethod.POST)
     @ResponseBody
-    public Result deleteCategory(@RequestBody CategoryDeleteRequest request) {
-        logger.info("MerchantCourseController deleteCategory request={}", request);
+    public Result deleteCategory(@RequestBody String msg) {
+        logger.info("MerchantCourseController deleteCategory request={}", msg);
         try {
+            CategoryDeleteRequest request = JsonConvertUtils.toObject(msg, CategoryDeleteRequest.class);
             request.validate();
             checkSign(request);
             return merchantCourseService.deleteCategory(request);
@@ -70,9 +80,10 @@ public class MerchantCourseController extends BaseController {
      */
     @RequestMapping(value = "/category/update", method = RequestMethod.POST)
     @ResponseBody
-    public Result updateCategory(@RequestBody CategoryUpdateRequest request) {
-        logger.info("MerchantCourseController updateCategory request={}", request);
+    public Result updateCategory(@RequestBody String msg) {
+        logger.info("MerchantCourseController updateCategory request={}", msg);
         try {
+            CategoryUpdateRequest request = JsonConvertUtils.toObject(msg, CategoryUpdateRequest.class);
             request.validate();
             checkSign(request);
             return merchantCourseService.updateCategory(request);
@@ -90,9 +101,10 @@ public class MerchantCourseController extends BaseController {
      */
     @RequestMapping(value = "/category/list", method = RequestMethod.POST)
     @ResponseBody
-    public Result listCategory(@RequestBody CategoryListRequest request) {
-        logger.info("MerchantCourseController listCategory request={}", request);
+    public Result listCategory(@RequestBody String msg) {
+        logger.info("MerchantCourseController listCategory request={}", msg);
         try {
+            CategoryListRequest request = JsonConvertUtils.toObject(msg, CategoryListRequest.class);
             request.validate();
             checkSign(request);
             return merchantCourseService.listCategory(request);
@@ -110,9 +122,10 @@ public class MerchantCourseController extends BaseController {
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Result addCourse(@RequestBody CourseAddRequest request) {
-        logger.info("MerchantCourseController addCourse request={}", request);
+    public Result addCourse(@RequestBody String msg) {
+        logger.info("MerchantCourseController addCourse request={}", msg);
         try {
+            CourseAddRequest request = JsonConvertUtils.toObject(msg, CourseAddRequest.class);
             request.validate();
             checkSign(request);
             return merchantCourseService.addCourse(request);
@@ -142,9 +155,10 @@ public class MerchantCourseController extends BaseController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Result updateCourse(@RequestBody CourseUpdateRequest request) {
-        logger.info("MerchantCourseController updateCourse request={}", request);
+    public Result updateCourse(@RequestBody String msg) {
+        logger.info("MerchantCourseController updateCourse request={}", msg);
         try {
+            CourseUpdateRequest request = JsonConvertUtils.toObject(msg, CourseUpdateRequest.class);
             request.validate();
             checkSign(request);
             return merchantCourseService.updateCourse(request);
@@ -162,9 +176,10 @@ public class MerchantCourseController extends BaseController {
      */
     @RequestMapping(value = "/listByCategory", method = RequestMethod.POST)
     @ResponseBody
-    public Result listCourseByCategory(@RequestBody CourseListRequest request) {
-        logger.info("MerchantCourseController listCourseByCategory request={}", request);
+    public Result listCourseByCategory(@RequestBody String msg) {
+        logger.info("MerchantCourseController listCourseByCategory request={}", msg);
         try {
+            CourseListRequest request = JsonConvertUtils.toObject(msg, CourseListRequest.class);
             request.validate();
             checkSign(request);
             return merchantCourseService.listCourseByCategory(request);
@@ -182,9 +197,10 @@ public class MerchantCourseController extends BaseController {
      */
     @RequestMapping(value = "/shelf", method = RequestMethod.POST)
     @ResponseBody
-    public Result shelf(@RequestBody CourseShelfRequest request) {
-        logger.info("MerchantCourseController shelf request={}", request);
+    public Result shelf(@RequestBody String msg) {
+        logger.info("MerchantCourseController shelf request={}", msg);
         try {
+            CourseShelfRequest request = JsonConvertUtils.toObject(msg, CourseShelfRequest.class);
             request.validate();
             checkSign(request);
             return merchantCourseService.shelf(request);

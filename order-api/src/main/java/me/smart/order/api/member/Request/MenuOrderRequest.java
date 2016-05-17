@@ -103,7 +103,6 @@ public class MenuOrderRequest extends BaseRequest implements Serializable {
         assertNotNull(merchantId, "用户id", LENGTH_10);
         assertNotNull(merchantId, "商户id", LENGTH_10);
         assertNotNull(tableNo, "桌号", LENGTH_10);
-        assertNotNull(sign, "签名", null);
         int amounts = menuOrderCourseInfoList.stream().mapToInt(item -> item.getPrice()).sum();
         if (totalAmount != amounts) {
             throw new BusinessException(ResultCode.REQUEST_NOT_VALID, "订单金额校验错误");

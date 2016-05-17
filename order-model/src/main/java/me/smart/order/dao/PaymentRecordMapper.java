@@ -1,7 +1,9 @@
 package me.smart.order.dao;
 
 import me.smart.order.model.PaymentRecord;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,5 +19,9 @@ public interface PaymentRecordMapper {
      * @return
      */
     PaymentRecord selectByMidAndNoAndPayType(Map<String, Object> map);
+
+    List<PaymentRecord> selectByMeIdAndNo(@Param("memberId") Long memberId, @Param("outTradeNo") String outTradeNo);
+
+    PaymentRecord selectByTransactionId(@Param("transactionId") String transactionId);
 
 }

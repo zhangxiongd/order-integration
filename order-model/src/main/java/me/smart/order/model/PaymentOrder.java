@@ -1,5 +1,6 @@
 package me.smart.order.model;
 
+import lombok.ToString;
 import me.smart.order.enums.PaymentOrderStatus;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.util.Date;
  * 支付订单表
  * Created by zhangxiong on 15/12/30.
  */
+@ToString
 public class PaymentOrder implements Serializable {
     private Long id;
     private Long merchantId;
@@ -17,7 +19,7 @@ public class PaymentOrder implements Serializable {
     //订单号
     private String outTradeNo;
     //菜单订单号
-    private String menuOutTradeNo;
+    private String menuOrderNo;
     //支付订单总金额
     private BigDecimal totalAmount;
 
@@ -51,12 +53,12 @@ public class PaymentOrder implements Serializable {
 
 
     public PaymentOrder(Long merchantId, Long memberId,
-                        String outTradeNo, String menuOutTradeNo,
+                        String outTradeNo, String menuOrderNo,
                         BigDecimal totalAmount, String productBody, Integer payDeadLine) {
         this.merchantId = merchantId;
         this.memberId = memberId;
         this.outTradeNo = outTradeNo;
-        this.menuOutTradeNo = menuOutTradeNo;
+        this.menuOrderNo = menuOrderNo;
         this.totalAmount = totalAmount;
         this.productBody = productBody;
         this.payDeadLine = payDeadLine;
@@ -99,12 +101,12 @@ public class PaymentOrder implements Serializable {
         this.outTradeNo = outTradeNo;
     }
 
-    public String getMenuOutTradeNo() {
-        return menuOutTradeNo;
+    public String getMenuOrderNo() {
+        return menuOrderNo;
     }
 
-    public void setMenuOutTradeNo(String menuOutTradeNo) {
-        this.menuOutTradeNo = menuOutTradeNo;
+    public void setMenuOrderNo(String menuOrderNo) {
+        this.menuOrderNo = menuOrderNo;
     }
 
     public BigDecimal getTotalAmount() {
@@ -203,27 +205,4 @@ public class PaymentOrder implements Serializable {
         this.createdAt = createdAt;
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("PaymentOrder{");
-        sb.append("id=").append(id);
-        sb.append(", merchantId=").append(merchantId);
-        sb.append(", memberId=").append(memberId);
-        sb.append(", outTradeNo='").append(outTradeNo).append('\'');
-        sb.append(", menuOutTradeNo='").append(menuOutTradeNo).append('\'');
-        sb.append(", totalAmount='").append(totalAmount).append('\'');
-        sb.append(", orderName='").append(orderName).append('\'');
-        sb.append(", productBody='").append(productBody).append('\'');
-        sb.append(", orderData='").append(orderData).append('\'');
-        sb.append(", payDeadLine=").append(payDeadLine);
-        sb.append(", currency='").append(currency).append('\'');
-        sb.append(", orderStatus=").append(orderStatus);
-        sb.append(", isDelete=").append(isDelete);
-        sb.append(", returnCode='").append(returnCode).append('\'');
-        sb.append(", returnMsg='").append(returnMsg).append('\'');
-        sb.append(", createdAt=").append(createdAt);
-        sb.append(", updatedAt=").append(updatedAt);
-        sb.append('}');
-        return sb.toString();
-    }
 }

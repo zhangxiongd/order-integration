@@ -4,6 +4,8 @@ import me.smart.order.api.PaymentInfo;
 import me.smart.order.api.RefundInfo;
 import me.smart.order.dto.payment.RefundRequest;
 import me.smart.order.dto.payment.RefundRespResult;
+import me.smart.order.enums.PaymentOrderStatus;
+import me.smart.order.enums.PaymentRecordStatus;
 import me.smart.order.exception.BusinessException;
 import me.smart.order.handler.ThirdPayHandler;
 import me.smart.order.model.PaymentOrder;
@@ -62,6 +64,8 @@ public abstract class BaseThirdPayHandler implements ThirdPayHandler {
 
     @Override
     public RefundInfo handleCancel(PaymentOrder order, PaymentRecord paymentRecord) throws BusinessException {
+        order.setOrderStatus(PaymentOrderStatus.CANCEL.getStatus());
+        paymentRecord.setPayStatus(PaymentRecordStatus.REFUND.getCode());
         return null;
     }
 

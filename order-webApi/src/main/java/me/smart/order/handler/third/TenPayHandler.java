@@ -89,6 +89,7 @@ public class TenPayHandler extends BaseThirdPayHandler {
 
     @Override
     protected RefundRespResult refund(RefundRequest refundRequest, PaymentRefund paymentRefund) {
+
         return null;
     }
 
