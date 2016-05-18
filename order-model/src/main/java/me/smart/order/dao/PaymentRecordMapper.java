@@ -24,4 +24,6 @@ public interface PaymentRecordMapper {
 
     PaymentRecord selectByTransactionId(@Param("transactionId") String transactionId);
 
+    int update(PaymentRecord paymentRecord);
+
 }

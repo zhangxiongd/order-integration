@@ -1,5 +1,7 @@
 package me.smart.order.model;
 
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -7,6 +9,7 @@ import java.util.Date;
 /**
  * Created by zhangxiong on 15/12/30.
  */
+@ToString
 public class PaymentRecord implements Serializable {
     private Long id;
 
@@ -197,33 +200,6 @@ public class PaymentRecord implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("PaymentRecord{");
-        sb.append("id=").append(id);
-        sb.append(", transactionId='").append(transactionId).append('\'');
-        sb.append(", memberId=").append(memberId);
-        sb.append(", merchantId=").append(merchantId);
-        sb.append(", outTradeNo='").append(outTradeNo).append('\'');
-        sb.append(", paymentWay='").append(paymentWay).append('\'');
-        sb.append(", tradeType='").append(tradeType).append('\'');
-        sb.append(", totalAmount=").append(totalAmount);
-        sb.append(", refundedAmount=").append(refundedAmount);
-        sb.append(", payStatus=").append(payStatus);
-        sb.append(", paySuccessTime=").append(paySuccessTime);
-        sb.append(", prepayId='").append(prepayId).append('\'');
-        sb.append(", outTransactionId='").append(outTransactionId).append('\'');
-        sb.append(", thirdUserId='").append(thirdUserId).append('\'');
-        sb.append(", returnCode='").append(returnCode).append('\'');
-        sb.append(", returnMsg='").append(returnMsg).append('\'');
-        sb.append(", isDelete=").append(isDelete);
-        sb.append(", createdAt=").append(createdAt);
-        sb.append(", updatedAt=").append(updatedAt);
-        sb.append('}');
-        return sb.toString();
     }
 }
 

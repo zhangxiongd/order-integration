@@ -10,4 +10,8 @@ public interface PaymentOrderMapper {
     int insert(PaymentOrder paymentOrder);
 
     PaymentOrder selectByMenuOrderNo(@Param("memberId") Long memberId, @Param("menuOrderNo") String menuOrderNo);
+
+    PaymentOrder selectByOutTradeNo(@Param("memberId") Long memberId, @Param("outTradeNo") String outTradeNo);
+
+    int update(PaymentOrder paymentOrder);
 }
