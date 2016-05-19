@@ -62,6 +62,13 @@ public class PaymentNotifyServiceImpl implements PaymentNotifyService {
         paymentOrderMapper.update(paymentOrder);
         paymentRecordMapper.update(paymentRecord);
         //用mq通知商户app来订单了,传递outTradeNo,order-merchant收到信息后则给APP推送消息
+//        MessagePostProcessor postProcessor = new MessagePostProcessor() {
+//            @Override
+//            public Message postProcessMessage(Message message) throws AmqpException {
+//                message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+//                return message;
+//            }
+//        };
         rabbitTemplate.convertAndSend(paymentOrder.getOutTradeNo());
         return paymentOrder;
     }

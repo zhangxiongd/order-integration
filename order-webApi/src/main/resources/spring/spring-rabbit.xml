@@ -15,10 +15,13 @@
                                username="${rabbit_username}" password="${rabbit_password}" port="${rabbit_port}"
                                virtual-host="${rabbit_virtual_host}"/>
 
+    <!-- 设置rabbit的管理 -->
     <rabbit:admin connection-factory="connectionFactory"/>
 
+    <!--队列声明 -->
     <rabbit:queue name="order_success_push_queue"/>
 
+    <!-- 将队列绑定到交换路由同时与key绑定 -->
     <rabbit:direct-exchange name="order_success_push_exchange" durable="true" auto-delete="false"
                             id="order_success_push_exchange">
         <rabbit:bindings>
@@ -26,7 +29,10 @@
         </rabbit:bindings>
     </rabbit:direct-exchange>
 
+    <bean id="jsonMessageConverter"
+          class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter"/>
+
     <rabbit:template id=" rabbitTemplate" connection-factory="connectionFactory"
-                     exchange="order_success_push_exchange"/>
+                     exchange="order_success_push_exchange" message-converter="jsonMessageConverter"/>
 
 </beans>
