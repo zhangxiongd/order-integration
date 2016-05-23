@@ -25,7 +25,7 @@ public interface CourseMapper {
      * @param course
      * @return
      */
-    int save(Course course);
+    int insert(Course course);
 
 
     /**

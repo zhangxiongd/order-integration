@@ -8,13 +8,15 @@
         <result column="short_name" property="shortName" jdbcType="VARCHAR"/>
         <result column="merchant_img" property="merchantImg" jdbcType="VARCHAR"/>
         <result column="sort" property="sort" jdbcType="TINYINT"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="merchant_desc" property="merchantDesc" jdbcType="VARCHAR"/>
         <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
         <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
         <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,merchant_name,short_name,merchant_img,sort,is_delete,created_at,updated_at
+        id,merchant_name,short_name,merchant_img,sort,address,merchant_desc,is_delete,created_at,updated_at
     </sql>
 
     <select id="getMerchantById" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -27,4 +29,65 @@
         and is_delete = 0
     </select>
 
+    <insert id="insert" parameterType="me.smart.order.model.Merchant" useGeneratedKeys="true" keyProperty="id">
+        insert into merchant
+        <trim prefix="(" suffix="," suffixOverrides=",">
+            <if test="merchantName != null">
+                merchant_name
+            </if>
+            <if test="shortName != null">
+                short_name
+            </if>
+            <if test="merchantImg != null">
+                merchant_img
+            </if>
+            <if test="sort != null">
+                sort
+            </if>
+            <if test="address != null">
+                address
+            </if>
+            <if test="merchantDesc != null">
+                merchant_desc
+            </if>
+            <if test="isDelete != null">
+                is_delete
+            </if>
+            <if test="createdAt != null">
+                created_at
+            </if>
+            <if test="updatedAt != null">
+                updated_at
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantName != null">
+                #{merchantName,jdbcType=VARCHAR},
+            </if>
+            <if test="shortName != null">
+                #{shortName,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantImg != null">
+                #{merchantImg,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=TINYINT},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantDesc != null">
+                #{merchantDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createdAt != null">
+                #{createdAt" ,bcType=TIMESTAMP},
+            </if>
+            <if test="updatedAt != null">
+                #{updatedAt" ,bcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
 </mapper>

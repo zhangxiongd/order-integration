@@ -7,10 +7,7 @@ import me.smart.order.dao.MemberUnionMapper;
 import me.smart.order.dao.MerchantMapper;
 import me.smart.order.dao.PaymentOrderMapper;
 import me.smart.order.dao.PaymentRecordMapper;
-import me.smart.order.enums.MemberUnionEnums;
-import me.smart.order.enums.PaymentWay;
-import me.smart.order.enums.ResultCode;
-import me.smart.order.enums.TradeType;
+import me.smart.order.enums.*;
 import me.smart.order.exception.BusinessException;
 import me.smart.order.handler.ThirdPayHandler;
 import me.smart.order.model.MemberUnion;
@@ -20,6 +17,7 @@ import me.smart.order.model.PaymentOrder;
 import me.smart.order.model.PaymentRecord;
 import me.smart.order.service.PaymentService;
 import me.smart.order.util.OrderNoUtils;
+import me.smart.order.util.UUIDGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +25,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -172,7 +172,22 @@ public class PaymentServiceImpl implements PaymentService {
      */
     @Override
     public PaymentRecord insertPaymentRecord(PaymentOrder paymentOrder, PaymentInfo paymentInfo) {
-        return null;
+        PaymentRecord paymentRecord = new PaymentRecord();
+        paymentRecord.setMemberId(paymentOrder.getMemberId());
+        paymentRecord.setMerchantId(paymentOrder.getMerchantId());
+        paymentRecord.setTransactionId(UUIDGenerator.get32UUID());
+        paymentRecord.setOutTradeNo(paymentOrder.getOutTradeNo());
+        paymentRecord.setPaymentWay(paymentInfo.getPaymentWay().getPaymentWay());
+        paymentRecord.setTradeType(paymentInfo.getTradeType().name());
+        paymentRecord.setTotalAmount(new BigDecimal(paymentInfo.getPayAmount()));
+        paymentRecord.setRefundedAmount(new BigDecimal(0));
+        paymentRecord.setPayStatus(PaymentRecordStatus.NOTPAY.getCode());
+        paymentRecord.setIsDelete(false);
+        Date now = new Date();
+        paymentRecord.setCreatedAt(now);
+        paymentRecord.setUpdatedAt(now);
+        paymentRecordMapper.insert(paymentRecord);
+        return paymentRecord;
     }
 
 
@@ -191,14 +206,10 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void cancel(PaymentOrder paymentOrder) throws Exception {
         logger.info("PaymentServiceImpl cancel menu_order_no={}, out_trade_no={}", paymentOrder.getMenuOrderNo(), paymentOrder.getOutTradeNo());
-
-
         List<PaymentRecord> paymentRecordList = paymentRecordMapper.selectByMeIdAndNo(paymentOrder.getMemberId(), paymentOrder.getOutTradeNo());
 
         ThirdPayHandler thirdPayHandler = getThirdPayHandler(PaymentWay.TEN_PAY);
 
         thirdPayHandler.handleCancel(paymentOrder, paymentRecordList.get(0));
-
-
     }
 }

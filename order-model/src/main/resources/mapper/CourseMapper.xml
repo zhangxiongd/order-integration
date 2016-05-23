@@ -11,6 +11,7 @@
         <result column="sale_price" property="salePrice" jdbcType="DECIMAL"/>
         <result column="special_price" property="specialPrice" jdbcType="DECIMAL"/>
         <result column="member_price" property="memberPrice" jdbcType="DECIMAL"/>
+        <result column="is_shelf" property="isShelf" jdbcType="TINYINT"/>
         <result column="sort" property="sort" jdbcType="BIGINT"/>
         <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
         <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
@@ -19,7 +20,7 @@
 
     <sql id="Base_Column_List">
         id,name,merchant_id,category_id,course_img,sale_price,special_price,member_price,
-        is_delete,created_at,updated_at
+        is_shelf,is_delete,created_at,updated_at
     </sql>
 
 
@@ -43,13 +44,146 @@
     </select>
 
 
-    <select id="findByIds" resultMap="BaseResultMap" parameterType="java.util.List">
+    <select id="findByIds" resultMap="BaseResultMap" parameterType="java.util.Arrays">
         SELECT
         <include refid="Base_Column_List"/>
         from course
         where id in
         <foreach collection="ids" open="(" close=")" separator="," item="id">
-            #{id}
+            #{id,,jdbcType=BIGINT}
         </foreach>
     </select>
+
+
+    <select id="findByMchIdAndCategoryIdAndName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from course
+        where merchant_id = #{merchantId,jdbcType=BIGINT}
+        and categoryId = #{category_id,jdbcType=BIGINT}
+        and name = #{name,jdbcType=VARCHAR}
+        and is_delete = 0
+    </select>
+
+    <insert id="insert" parameterType="me.smart.order.model.Course" useGeneratedKeys="true" keyProperty="id">
+        insert  into course
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                name
+            </if>
+            <if test="merchantId != null">
+                merchant_id
+            </if>
+            <if test="categoryId != null">
+                category_id
+            </if>
+            <if test="courseImg != null">
+                course_img
+            </if>
+            <if test="salePrice != null">
+                sale_price
+            </if>
+            <if test="specialPrice != null">
+                special_price
+            </if>
+            <if test="memberPrice != null">
+                member_price
+            </if>
+            <if test="isShelf != null">
+                is_shelf
+            </if>
+            <if test="isDelete != null">
+                is_delete
+            </if>
+            <if test="createdAt != null">
+                created_at
+            </if>
+            <if test="updatedAt != null">
+                updated_at
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantId != null">
+                #{merchantId,jdbcType=BIGINT},
+            </if>
+            <if test="categoryId != null">
+                #{categoryId,jdbcType=BIGINT},
+            </if>
+            <if test="courseImg != null">
+                #{courseImg,jdbcType=VARCHAR},
+            </if>
+            <if test="salePrice != null">
+                #{salePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="specialPrice != null">
+                #{specialPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="isShelf != null">
+                #{isShelf,jdbcType=TINYINT},
+            </if>
+            <if test="memberPrice != null">
+                #{memberPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createdAt != null">
+                #{createdAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedAt != null">
+                #{updatedAt,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByShelf" parameterType="me.smart.order.model.Course">
+        update course set is_shelf = #{isShelf,jdbcType=TINYINT} where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateIsDeleteByCategory" parameterType="me.smart.order.model.Course">
+        update course set is_delete = 1 where merchant_id = #{merchantId,jdbcType=BIGINT} and category_id = #{categoryId,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateCourse" parameterType="me.smart.order.model.Course">
+        update course
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantId != null">
+                merchant_id = #{merchantId,jdbcType=BIGINT},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId,jdbcType=BIGINT},
+            </if>
+            <if test="courseImg != null">
+                course_img = #{courseImg,jdbcType=VARCHAR},
+            </if>
+            <if test="salePrice != null">
+                sale_price = #{salePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="specialPrice != null">
+                special_price = #{specialPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="isShelf != null">
+                member_price = #{isShelf,jdbcType=TINYINT},
+            </if>
+            <if test="memberPrice != null">
+                is_shelf = #{memberPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createdAt != null">
+                created_at = #{createdAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedAt != null">
+                updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>

@@ -16,7 +16,7 @@
         id,merchant_name,short_name,password,is_delete,source,created_at,updated_at
     </sql>
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="me.smart.order.model.MemberUnion" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO member_union
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="memberId !=null">

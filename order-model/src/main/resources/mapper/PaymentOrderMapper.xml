@@ -131,4 +131,77 @@
         </trim>
     </insert>
 
+
+    <select id="selectByMenuOrderNo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from payment_record_trace
+        where member_id = #{memberId,jdbcType=BIGINT}
+          and menu_order_no = #{menuOrderNo,jdbcType=VARCHAR}
+          and is_delete = 0
+    </select>
+
+    <select id="selectByOutTradeNo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from payment_record_trace
+        where member_id = #{memberId,jdbcType=BIGINT}
+        and out_trade_no = #{outTradeNo,jdbcType=VARCHAR}
+        and is_delete = 0
+    </select>
+
+    <update id="update" parameterType="me.smart.order.model.PaymentOrder">
+      update payment_record_trace
+      <set>
+          <if test="merchantId != null">
+              merchant_id = #{merchantId,jdbcType=BIGINT}
+          </if>
+          <if test="memberId != null">
+              memberId = #{memberId,jdbcType=BIGINT}
+          </if>
+          <if test="menuOrderNo != null">
+              menuOrderNo = #{menuOrderNo,jdbcType=VARCHAR}
+          </if>
+          <if test="menuOrderNo != null">
+              menu_order_no = #{menuOrderNo,jdbcType=VARCHAR}
+          </if>
+          <if test="totalAmount != null">
+              total_amount = #{totalAmount,jdbcType=DECIMAL}
+          </if>
+          <if test="orderName != null">
+              order_name = orderName,
+          </if>
+          <if test="productBody != null">
+              product_body = #{productBody,jdbcType=VARCHAR}
+          </if>
+          <if test="orderData != null">
+              order_data = #{orderData,jdbcType=VARCHAR}
+          </if>
+          <if test="payDeadLine != null">
+              pay_dead_line = #{payDeadLine,jdbcType=INT}
+          </if>
+          <if test="currency != null">
+              currency = #{currency,jdbcType=VARCHAR}
+          </if>
+          <if test="orderStatus != null">
+              order_status = #{orderStatus,jdbcType=TINYINT}
+          </if>
+          <if test="isDelete != null">
+              is_delete = #{isDelete,jdbcType=TINYINT}
+          </if>
+          <if test="returnCode != null">
+              return_code = #{returnCode,jdbcType=TINYINT}
+          </if>
+          <if test="returnMsg != null">
+              return_msg = #{returnMsg,jdbcType=VARCHAR}
+          </if>
+          <if test="createdAt != null">
+              created_at = #{createdAt,jdbcType=TIMESTAMP}
+          </if>
+          <if test="updatedAt != null">
+              updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+          </if>
+      </set>
+      where id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>

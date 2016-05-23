@@ -14,6 +14,8 @@
         <result column="trade_password" property="tradePassword" jdbcType="VARCHAR"/>
         <result column="trade_salt" property="tradeSalt" jdbcType="VARCHAR"/>
         <result column="is_admin" property="isAdmin" jdbcType="TINYINT"/>
+        <result column="source" property="source" jdbcType="TINYINT"/>
+        <result column="token" property="token" jdbcType="VARCHAR"/>
         <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
         <result column="last_login_at" property="lastLoginAt" jdbcType="TIMESTAMP"/>
         <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
@@ -21,9 +23,173 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,merchant_id,mobile,real_name,email,account_img,login_password,login_salt,
-        trade_password,trade_salt,is_admin,is_delete,last_login_at,created_at,updated_at
+        id,merchant_id,mobile,real_name,email,account_img,login_password,login_salt,trade_password,trade_salt,
+        is_admin,source,token,is_delete,last_login_at,created_at,updated_at
     </sql>
-    
 
+    <insert id="insert" parameterType="me.smart.order.model.MerchantAccount" useGeneratedKeys="true" keyProperty="id">
+        insert  into merchant_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">
+                merchant_id,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="realName != null">
+                real_name,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="accountImg != null">
+                account_img,
+            </if>
+            <if test="loginPassword != null">
+                login_password,
+            </if>
+            <if test="loginSalt != null">
+                login_salt,
+            </if>
+            <if test="tradePassword != null">
+                trade_password,
+            </if>
+            <if test="tradeSalt != null">
+                trade_salt,
+            </if>
+            <if test="isAdmin != null">
+                is_admin,
+            </if>
+            <if test="source != null">
+                source,
+            </if>
+            <if test="token != null">
+                token,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="lastLoginAt != null">
+                last_login_at,
+            </if>
+            <if test="createdAt != null">
+                created_at,
+            </if>
+            <if test="updatedAt != nul">
+                updated_at,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">
+                #{merchantId, jdbcType=BIGINT}
+            </if>
+            <if test="mobile != null">
+                #{mobile, jdbcType=VARCHAR}
+            </if>
+            <if test="realName != null">
+                #{realName, jdbcType=VARCHAR}
+            </if>
+            <if test="email != null">
+                #{email, jdbcType=VARCHAR}
+            </if>
+            <if test="accountImg != null">
+                #{accountImg, jdbcType=VARCHAR}
+            </if>
+            <if test="loginPassword != null">
+                #{loginPassword, jdbcType=VARCHAR}
+            </if>
+            <if test="loginSalt != null">
+                #{loginSalt, jdbcType=VARCHAR}
+            </if>
+            <if test="tradePassword != null">
+                #{tradePassword, jdbcType=VARCHAR}
+            </if>
+            <if test="tradeSalt != null">
+                #{tradeSalt, jdbcType=VARCHAR}
+            </if>
+            <if test="isAdmin != null">
+                #{isAdmin, jdbcType=TINYINT}
+            </if>
+            <if test="source != null">
+                #{source, jdbcType=TINYINT}
+            </if>
+            <if test="token != null">
+                #{token, jdbcType=VARCHAR}
+            </if>
+            <if test="isDelete != null">
+                #{isDelete, jdbcType=TINYINT}
+            </if>
+            <if test="lastLoginAt != null">
+                #{lastLoginAt, jdbcType=TIMESTAMP}
+            </if>
+            <if test="createdAt != null">
+                #{createdAt, jdbcType=TIMESTAMP}
+            </if>
+            <if test="updatedAt != null">
+                #{updatedAt, jdbcType=TIMESTAMP}
+            </if>
+        </trim>
+    </insert>
+
+    <select id="findByMobile" parameterType="me.smart.order.model.MerchantAccount">
+        select
+        <include refid="Base_Column_List"/>
+        from merchant_account
+        where mobile = #{mobile,jdbcType=VARCHAR} and is_delete = 0
+    </select>
+
+    <update id="updateAccount">
+        update merchant_account
+        <set>
+            <if test="merchantId != null">
+                merchant_id = #{merchantId, jdbcType=BIGINT},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile, jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName, jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email, jdbcType=VARCHAR},
+            </if>
+            <if test="accountImg != null">
+                account_img = #{accountImg, jdbcType=VARCHAR},
+            </if>
+            <if test="loginPassword != null">
+                login_password = #{loginPassword, jdbcType=VARCHAR},
+            </if>
+            <if test="loginSalt != null">
+                login_salt = #{loginSalt, jdbcType=VARCHAR},
+            </if>
+            <if test="tradePassword != null">
+                trade_password = #{tradePassword, jdbcType=VARCHAR},
+            </if>
+            <if test="tradeSalt != null">
+                trade_salt = #{tradeSalt, jdbcType=VARCHAR},
+            </if>
+            <if test="isAdmin != null">
+                is_admin = #{isAdmin, jdbcType=TINYINT},
+            </if>
+            <if test="source != null">
+                source = #{source, jdbcType=TINYINT},
+            </if>
+            <if test="token != null">
+                token = #{token, jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete, jdbcType=TINYINT},
+            </if>
+            <if test="lastLoginAt != null">
+                last_login_at = #{lastLoginAt, jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdAt != null">
+                created_at = #{createdAt, jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedAt != null">
+                updated_at = #{updatedAt, jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT} and is_delete = 0
+    </update>
 </mapper>

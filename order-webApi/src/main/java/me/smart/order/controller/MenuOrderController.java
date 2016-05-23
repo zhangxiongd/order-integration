@@ -32,7 +32,6 @@ public class MenuOrderController extends BaseController {
     @ResponseBody
     public Result order(@RequestBody MenuOrderRequest menuOrderRequest) {
         logger.info("MenuOrderController order requestParam = {}", menuOrderRequest);
-       
         try {
             menuOrderRequest.validate();
             Result<PayResult> result = menuOrderService.transMenuOrder(menuOrderRequest);
@@ -41,7 +40,11 @@ public class MenuOrderController extends BaseController {
             logger.error(e.getMessage(), e);
             return errorResult(e);
         }
-
     }
 
+    @RequestMapping(value = "/menuOrderQuery", method = RequestMethod.POST)
+    @ResponseBody
+    public Result menuOrderQuery(){
+        return null;
+    }
 }

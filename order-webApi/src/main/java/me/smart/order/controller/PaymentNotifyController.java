@@ -29,15 +29,12 @@ public class PaymentNotifyController {
      * @param msg
      */
     @RequestMapping(value = "tenpay")
-    public void acceptTenPayNotify(@RequestBody String msg) {
-
+    public String acceptTenPayNotify(@RequestBody String msg) {
         logger.info("微信支付回调通知: {}", msg);
-
         try {
-            paymentNotifyService.acceptTenPayNotify(msg);
+            return paymentNotifyService.acceptTenPayNotify(msg);
         } catch (Exception e) {
-
+            return "error";
         }
-
     }
 }

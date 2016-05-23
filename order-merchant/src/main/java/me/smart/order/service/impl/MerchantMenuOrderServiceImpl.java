@@ -49,7 +49,7 @@ public class MerchantMenuOrderServiceImpl implements MerchantMenuOrderService {
     @Override
     public Result list(MenuOrderListRequest request) throws Exception {
 
-        List<MenuOrder> menuOrderList = menuOrderMapper.queryListByStatus(request.getPageSize(), request.getPageNo(),
+        List<MenuOrder> menuOrderList = menuOrderMapper.queryListByStatus(Long.valueOf(request.getMerchantId()), request.getPageSize(),request.getPageSize()*request.getPageNo(),
                 request.getStatus());
 
         List<MerchantCourseCategory> merchantCourseCategoryList =
@@ -70,7 +70,7 @@ public class MerchantMenuOrderServiceImpl implements MerchantMenuOrderService {
     @Override
     public Result deal(MenuOrderDealRequest request) throws Exception {
         //根据菜单订单号获取订单
-        MenuOrder menuOrder = menuOrderMapper.selectByMenuOrderNO(Long.valueOf(request.getMerchantId()), request.getMenuOrderNo());
+        MenuOrder menuOrder = menuOrderMapper.selectByMenuOrderNo(Long.valueOf(request.getMerchantId()), request.getMenuOrderNo());
         if (menuOrder == null) {
             throw new BusinessException(ResultCode.ORDER_NOT_EXIST_ERROR);
         }
@@ -89,7 +89,7 @@ public class MerchantMenuOrderServiceImpl implements MerchantMenuOrderService {
 
         //更新订单表
         try {
-            menuOrderMapper.updateByStatus(request.getMenuOrderNo(), menuOrder.getOrderStatus());
+            menuOrderMapper.updateByStatus(Long.valueOf(request.getMerchantId()),request.getMenuOrderNo(), menuOrder.getOrderStatus());
         } catch (Exception e) {
             logger.error("更新菜单订单状态失败" + e.getMessage(), e);
             throw new SystemException(ErrorCode.SQL_ERROR);
@@ -112,7 +112,7 @@ public class MerchantMenuOrderServiceImpl implements MerchantMenuOrderService {
         menuOrderInfo.setRemark(menuOrder.getRemark());
         menuOrderInfo.setStatus(menuOrder.getOrderStatus());
         menuOrderInfo.setStatusDesc(MenuOrderStatus.parse(menuOrder.getOrderStatus()).getStatusDesc());
-        List<MenuCourse> menuCourseList = menuCourseMapper.getListByMenuOrderNo(menuOrder.getMenuOrderNo());
+        List<MenuCourse> menuCourseList = menuCourseMapper.getListByMenuOrderNo(menuOrder.getMerchantId(), menuOrder.getMemberId(),menuOrder.getMenuOrderNo());
         logger.info("MenuOrder menuOrderNo={},menuCourseList.size={}", menuOrder.getMenuOrderNo(), menuCourseList.size());
         menuOrderInfo.setCategoryList(getCategoryList(menuCourseList, merchantCourseCategoryList));
         return menuOrderInfo;
@@ -121,7 +121,7 @@ public class MerchantMenuOrderServiceImpl implements MerchantMenuOrderService {
 
     private List<MenuOrderCategory> getCategoryList(List<MenuCourse> menuCourseList, List<MerchantCourseCategory> merchantCourseCategoryList) {
         if (merchantCourseCategoryList.size() == 0) {
-            List<MenuOrderCategory> menuOrderCategoryList = new ArrayList<>(1);
+            List<MenuOrderCategory> menuOrderCategoryList = new ArrayList<>();
             MenuOrderCategory menuOrderCategory = new MenuOrderCategory();
             menuOrderCategory.setCategoryName("全部");
             List<MenuOrderCourseInfo> subList = new ArrayList<>(menuCourseList.size());

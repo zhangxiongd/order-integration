@@ -13,7 +13,7 @@ import java.util.Date;
 public class PaymentRecord implements Serializable {
     private Long id;
 
-    //流水好
+    //流水号
     private String transactionId;
     private Long memberId;
     private Long merchantId;

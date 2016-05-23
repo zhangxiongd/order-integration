@@ -9,7 +9,8 @@
       <module fileurl="file://$PROJECT_DIR$/order-merchant/order-merchant.iml" filepath="$PROJECT_DIR$/order-merchant/order-merchant.iml" />
       <module fileurl="file://$PROJECT_DIR$/order-model/order-model.iml" filepath="$PROJECT_DIR$/order-model/order-model.iml" />
       <module fileurl="file://$PROJECT_DIR$/order-service/order-service.iml" filepath="$PROJECT_DIR$/order-service/order-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/order-webApi/order-webApi.iml" filepath="$PROJECT_DIR$/order-webApi/order-webApi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-webApi/order-weiApi.iml" filepath="$PROJECT_DIR$/order-webApi/order-weiApi.iml" />
     </modules>
   </component>
 </project>
+

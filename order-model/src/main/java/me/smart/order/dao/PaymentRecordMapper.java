@@ -26,4 +26,5 @@ public interface PaymentRecordMapper {
 
     int update(PaymentRecord paymentRecord);
 
+    int insert(PaymentRecord paymentRecord);
 }

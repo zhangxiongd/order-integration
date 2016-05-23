@@ -21,5 +21,5 @@ public interface MerchantCourseCategoryMapper {
     int update(MerchantCourseCategory merchantCourseCategory);
 
 
-    MerchantCourseCategory findByMchIdAndName(@Param("merchantId") Long merchantId, @Param("name") String name);
+    MerchantCourseCategory findByMchIdAndName(@Param("merchantId") Long merchantId, @Param("categoryName") String categoryName);
 }

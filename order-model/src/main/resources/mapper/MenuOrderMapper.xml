@@ -4,9 +4,9 @@
 
     <resultMap id="BaseResultMap" type="me.smart.order.model.MenuOrder">
         <id column="id" property="id" jdbcType="BIGINT"/>
-        <result column="merchant_id" property="merchantId" jdbcType="BIGINT"/>
         <result column="member_id" property="memberId" jdbcType="BIGINT"/>
-        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="merchant_id" property="merchantId" jdbcType="BIGINT"/>
+        <result column="table_no" property="tableNo" jdbcType="VARCHAR"/>
         <result column="menu_order_no" property="menuOrderNo" jdbcType="VARCHAR"/>
         <result column="total_amount" property="totalAmount" jdbcType="DECIMAL"/>
         <result column="pay_amount" property="payAmount" jdbcType="DECIMAL"/>
@@ -14,7 +14,7 @@
         <result column="discount_type" property="discountType" jdbcType="TINYINT"/>
         <result column="discount_comment" property="discountComment" jdbcType="VARCHAR"/>
         <result column="order_status" property="orderStatus" jdbcType="TINYINT"/>
-        <result column="table_no" property="tableNo" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
         <result column="header_count" property="headerCount" jdbcType="TINYINT"/>
         <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
         <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
@@ -124,4 +124,39 @@
             </if>
         </trim>
     </insert>
+
+
+    <select id="queryListByStatus" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from menu_order
+        where merchant_id =  #{merchantId,jdbcType=INTEGER}
+        and order_status =  #{orderStatus,jdbcType=TINYINT}
+        and is_delete = 0
+        limit #{startRow}, #{pageSize}
+    </select>
+
+    <select id="selectByMenuOrderNo" resultMap="BaseResultMap">
+         select
+        <include refid="Base_Column_List"/>
+        from menu_order
+        where merchant_id =  #{merchantId,jdbcType=INTEGER}
+        and menu_order_no = #{menuOrderNo,jdbcType = VARCHAR}
+        and is_delete = 0
+    </select>
+
+    <update id="updateByStatus">
+       update menu_order set order_status = #{orderStatus,jdbcType=TINYINT}
+       where merchant_id = #{merchantId,jdbcType=INTEGER} and  menu_order_no = #{menuOrderNo,jdbcType = VARCHAR}
+       and is_delete = 0
+    </update>
+
+    <select id="selectByMIdAndOrderNoAndMemberId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from menu_order
+        where member_id = #{memberId, jdbcType=INTEGER} and merchant_id = #{merchantId,jdbcType=INTEGER}
+        and  menu_order_no = #{menuOrderNo,jdbcType = VARCHAR}
+        and is_delete = 0
+    </select>
 </mapper>

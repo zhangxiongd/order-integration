@@ -1,7 +1,8 @@
 <component name="libraryTable">
   <library name="bccs-api-3.0.1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../javasdk_3.0.1/output/bccs-api-3.0.1.jar!/" />
+      <root url="jar://E:/tools/libs/bccs-api-3.0.1.jar!/" />
+      <root url="jar://E:/tools/libs/taobao-sdk.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

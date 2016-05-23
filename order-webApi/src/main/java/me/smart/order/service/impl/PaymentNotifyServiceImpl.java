@@ -23,7 +23,6 @@ import javax.annotation.Resource;
 @Service("paymentNotifyService")
 public class PaymentNotifyServiceImpl implements PaymentNotifyService {
     private Logger logger = LoggerFactory.getLogger(PaymentNotifyServiceImpl.class);
-
     @Resource
     private AcceptTenpayNotify acceptTenpayNotify;
     @Resource
@@ -69,6 +68,7 @@ public class PaymentNotifyServiceImpl implements PaymentNotifyService {
 //                return message;
 //            }
 //        };
+        //todo 可以考虑将此步骤抽出来不用放在事务里
         rabbitTemplate.convertAndSend(paymentOrder.getOutTradeNo());
         return paymentOrder;
     }

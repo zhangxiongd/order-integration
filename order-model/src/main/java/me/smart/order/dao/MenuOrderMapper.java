@@ -11,12 +11,12 @@ import java.util.List;
 public interface MenuOrderMapper {
     int insert(MenuOrder menuOrder);
 
-    List<MenuOrder> queryListByStatus(@Param("pageSize") int pageSize, @Param("pageNo") int pageNo,
-                                      @Param("status") int status);
+    List<MenuOrder> queryListByStatus(@Param("merchantId") Long merchantId, @Param("pageSize") int pageSize, @Param("startRow") int startRow,
+                                      @Param("orderStatus") int orderStatus);
 
-    MenuOrder selectByMenuOrderNO(@Param("merchantId") Long merchantId, @Param("menuOrderNo") String menuOrderNo);
+    MenuOrder selectByMenuOrderNo(@Param("merchantId") Long merchantId, @Param("menuOrderNo") String menuOrderNo);
 
-    int updateByStatus(@Param("menuOrderNo") String menuOrderNo, @Param("status") int status);
+    int updateByStatus(@Param("merchantId") Long merchantId, @Param("menuOrderNo") String menuOrderNo, @Param("orderStatus") int orderStatus);
 
     MenuOrder selectByMIdAndOrderNoAndMemberId(@Param("memberId") Long memberId, @Param("menuOrderNo") String menuOrderNo,
                                                @Param("merchantId") Long merchantId);

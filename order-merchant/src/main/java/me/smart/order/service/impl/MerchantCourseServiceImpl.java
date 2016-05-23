@@ -185,7 +185,7 @@ public class MerchantCourseServiceImpl implements MerchantCourseService {
         Course course = createCourse(request);
 
         try {
-            int count = courseMapper.save(course);
+            int count = courseMapper.insert(course);
             if (count == 0) {
                 throw new SystemException(ErrorCode.SQL_ERROR);
             }
@@ -235,10 +235,12 @@ public class MerchantCourseServiceImpl implements MerchantCourseService {
     @Override
     public Result updateCourse(CourseUpdateRequest request) throws Exception {
         //先找到对应的course
-        Course course = courseMapper.findById(Long.valueOf(request.getCourseId()));
-        if (course == null) {
+        Course courseDB = courseMapper.findById(Long.valueOf(request.getCourseId()));
+        if (courseDB == null) {
             throw new BusinessException(COURSE_NOT_EXIST_ERROR);
         }
+        Course course = new Course();
+        course.setId(courseDB.getId());
         if (StringUtils.isNotBlank(request.getCourseName())) {
             course.setName(request.getCourseName());
         }

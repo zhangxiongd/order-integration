@@ -13,7 +13,7 @@ public interface CourseCategoryMapper {
 
     CourseCategory getById(@Param("id") Long id);
 
-    CourseCategory getByMerchantIdAndName(@Param("merchantId") Long merchantId, @Param("name") String name);
+    CourseCategory getByMerchantIdAndName(@Param("merchantId") Long merchantId, @Param("categoryName") String name);
 
     /**
      * @param courseCategory

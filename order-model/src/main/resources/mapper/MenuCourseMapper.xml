@@ -5,25 +5,120 @@
     <resultMap id="BaseResultMap" type="me.smart.order.model.MenuCourse">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="course_id" property="courseId" jdbcType="BIGINT"/>
-        <result column="member_id" property="memberId" jdbcType="BIGINT"/>
+        <result column="course_name" property="courseName" jdbcType="VARCHAR"/>
+        <result column="menu_order_no" property="menuOrderNo" jdbcType="VARCHAR"/>
         <result column="merchant_category_id" property="merchantCategoryId" jdbcType="BIGINT"/>
-        <result column="out_trade_no" property="menuOrderNo" jdbcType="VARCHAR"/>
-        <result column="total_amount" property="totalAmount" jdbcType="DECIMAL"/>
-        <result column="payAmount" property="payAmount" jdbcType="DECIMAL"/>
-        <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL"/>
-        <result column="discount_type" property="discountType" jdbcType="BIGINT"/>
-        <result column="discountC_comment" property="discountComment" jdbcType="VARCHAR"/>
-        <result column="order_status" property="orderStatus" jdbcType="BIGINT"/>
-        <result column="table_no" property="tableNo" jdbcType="VARCHAR"/>
+        <result column="merchant_category_name" property="merchantCategoryName" jdbcType="VARCHAR"/>
+        <result column="member_id" property="memberId" jdbcType="BIGINT"/>
+        <result column="merchant_id" property="merchantId" jdbcType="BIGINT"/>
+        <result column="sale_price" property="salePrice" jdbcType="DECIMAL"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="count" property="count" jdbcType="TINYINT"/>
         <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
         <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
         <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,merchant_id,member_id,merchant_category_id,out_trade_no,total_amount,payAmount,discount_amount,discount_type,
-        discountC_comment,order_status,table_no,is_delete,created_at,updated_at
+        id,course_id,course_name,menu_order_no,merchant_category_id,merchant_category_name,
+        member_id,merchant_id,sale_price,price,count,is_delete,created_at,updated_at
     </sql>
     
+    <insert id="insert" parameterType="me.smart.order.model.MenuCourse" useGeneratedKeys="true" keyProperty="id">
+        insert  into menu_course
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="courseId != null">
+                course_id,
+            </if>
+            <if test="courseName != null">
+                course_name,
+            </if>
+            <if test="menuOrderNo != null">
+                menu_order_no,
+            </if>
+            <if test="merchantCategoryId != null">
+                merchant_category_id,
+            </if>
+            <if test="merchantCategoryName != null">
+                merchant_category_name,
+            </if>
+            <if test="memberId != null">
+                member_id,
+            </if>
+            <if test="merchantId != null">
+                merchant_id,
+            </if>
+            <if test="salePrice != null">
+                sale_price,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="count != null">
+                count,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="createdAt != null">
+                created_at,
+            </if>
+            <if test="updatedAt != null">
+                updated_at,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="courseId != null">
+                #{courseId,jdbcType=BIGINT},
+            </if>
+            <if test="courseName != null">
+                #{courseName,jdbcType=VARCHAR},
+            </if>
+            <if test="menuOrderNo != null">
+                #{menuOrderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantCategoryId != null">
+                #{merchantCategoryId,jdbcType=BIGINT},
+            </if>
+            <if test="merchantCategoryName != null">
+                #{merchantCategoryName,jdbcType=VARCHAR},
+            </if>
+            <if test="memberId != null">
+                #{memberId,jdbcType=BIGINT},
+            </if>
+            <if test="merchantId != null">
+                #{merchantId,jdbcType=BIGINT},
+            </if>
+            <if test="salePrice != null">
+                #{salePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="count != null">
+                #{count,jdbcType=TINYINT},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createdAt != null">
+                #{createdAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedAt != null">
+                #{updatedAt,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
 
+    <select id="getListByMenuOrderNo" resultMap="BaseResultMap">
+         select
+          <include refid="Base_Column_List"/>
+        from
+          menu_course
+        where
+          member_id =  #{memberId,jdbcType=BIGINT}
+        and merchant_id = #{merchantId,jdbcType=BIGINT}
+        and menu_order_no = #{menuOrderNo,jdbcType=VARCHAR}
+        and is_delete = 0
+    </select>
 </mapper>

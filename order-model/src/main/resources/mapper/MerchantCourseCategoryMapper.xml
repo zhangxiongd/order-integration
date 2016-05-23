@@ -20,10 +20,95 @@
         select
         <include refid="Base_Column_List"/>
         from
-        merchant_ourse_category
+        merchant_course_category
         where
         merchant_id = #{merchantId,jdbcType=BIGINT}
         and is_delete = 0
         order by sort DESC
+    </select>
+
+    <insert id="insert" parameterType="me.smart.order.model.MerchantCourseCategory">
+        insert  into merchant_course_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="categoryName != null">
+                category_nme,
+            </if>
+            <if test="merchantId != null">
+                merchant_id,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="createdAt != null">
+                created_at,
+            </if>
+            <if test="updatedAt != null">
+                updated_at,
+            </if>
+        </trim>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="categoryName != null">
+                #{categoryName,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantId != null">
+                #{merchantId,jdbcType=BIGINT},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=BIGINT},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createdAt != null">
+                #{createdAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedAt != null">
+                #{updatedAt,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from merchant_course_category
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <update id="update" parameterType="me.smart.order.model.MerchantCourseCategory">
+          update merchant_course_category
+          <set>
+              <if test="categoryName != null">
+                  category_nme = #{categoryName,jdbcType=VARCHAR},
+              </if>
+              <if test="merchantId != null">
+                  merchant_id = #{merchantId,jdbcType=BIGINT},
+              </if>
+              <if test="sort != null">
+                  sort = #{sort,jdbcType=BIGINT},
+              </if>
+              <if test="isDelete != null">
+                  is_delete = #{isDelete,jdbcType=TINYINT},
+              </if>
+              <if test="createdAt != null">
+                  created_at = #{createdAt,jdbcType=TIMESTAMP},
+              </if>
+              <if test="updatedAt != null">
+                  updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+              </if>
+          </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="findByMchIdAndName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from merchant_course_category
+        where merchant_id = #{merchantId,jdbcType=BIGINT}
+        and category_name = #{categoryName,jdbcType=VARCHAR}
+        and is_delete = 0
     </select>
 </mapper>

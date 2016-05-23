@@ -69,49 +69,25 @@
 
     </properties>
     <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                    <compilerArguments>
-                        <extdirs>/Users/zhangxiong/tools/libs</extdirs>
-                    </compilerArguments>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <warSourceExcludes>/Users/zhangxiong/tools/tomcat/apache-tomcat-8.0.24/webapps</warSourceExcludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    <!--<build>-->
-    <!--<plugins>-->
+    <plugins>
+        <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.3</version>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>
+                <encoding>UTF-8</encoding>
+                <compilerArguments>
+                    <extdirs>E:/tools/libs</extdirs>
+                </compilerArguments>
+            </configuration>
+        </plugin>
     <!--<plugin>-->
     <!--<groupId>org.apache.maven.plugins</groupId>-->
-    <!--<artifactId>maven-compiler-plugin</artifactId>-->
-    <!--<version>3.3</version>-->
-    <!--<configuration>-->
-    <!--<source>1.8</source>-->
-    <!--<target>1.8</target>-->
-    <!--<compilerArguments>-->
-    <!--<extdirs>/Users/zhangxiong/tools/libs</extdirs>-->
-    <!--</compilerArguments>-->
-    <!--</configuration>-->
-    <!--</plugin>-->
-    <!--<plugin>-->
-    <!--<groupId>org.apache.maven.plugins</groupId>-->
-    <!--<artifactId>maven-resources-plugin</artifactId>-->
-    <!--<version>2.5</version>-->
-    <!--<configuration>-->
-    <!--<encoding>${project.build.sourceEncoding}</encoding>-->
+        <!--<artifactId>maven-resources-plugin</artifactId>-->
+        <!--<version>2.5</version>-->
+        <!--<configuration>-->
+        <!--<encoding>${project.build.sourceEncoding}</encoding>-->
     <!--</configuration>-->
     <!--</plugin>-->
     <!--<plugin>-->
@@ -122,7 +98,7 @@
     <!--<tagNameFormat>release-@{project.version}</tagNameFormat>-->
     <!--</configuration>-->
     <!--</plugin>-->
-    <!--</plugins>-->
+    </plugins>
 
     <!--<resources>-->
     <!--<resource>-->
@@ -132,7 +108,7 @@
     <!--</includes>-->
     <!--</resource>-->
     <!--</resources>-->
-    <!--</build>-->
+    </build>
 
     <dependencyManagement>
 
@@ -313,4 +289,11 @@
 
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>repo-mirror</id>
+            <url>http://maven.net.cn/content/groups/public/</url>
+        </repository>
+    </repositories>
 </project>

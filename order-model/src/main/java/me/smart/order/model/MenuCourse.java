@@ -1,5 +1,7 @@
 package me.smart.order.model;
 
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -7,6 +9,7 @@ import java.util.Date;
 /**
  * Created by zhangxiong on 16/2/14.
  */
+@ToString
 public class MenuCourse implements Serializable {
     private Long id;
     private Long courseId;
@@ -14,8 +17,8 @@ public class MenuCourse implements Serializable {
     private String menuOrderNo;
     private Long merchantCategoryId;
     private String merchantCategoryName;
-    private Long merchantId;
     private Long memberId;
+    private Long merchantId;
     //销售价格快照
     private BigDecimal salePrice;
     //实际价格快照
@@ -157,23 +160,5 @@ public class MenuCourse implements Serializable {
 
     public void setMerchantCategoryName(String merchantCategoryName) {
         this.merchantCategoryName = merchantCategoryName;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("MenuCourse{");
-        sb.append("id=").append(id);
-        sb.append(", courseId=").append(courseId);
-        sb.append(", menuOrderNo='").append(menuOrderNo).append('\'');
-        sb.append(", merchantId=").append(merchantId);
-        sb.append(", memberId=").append(memberId);
-        sb.append(", salePrice=").append(salePrice);
-        sb.append(", price=").append(price);
-        sb.append(", count=").append(count);
-        sb.append(", isDelete=").append(isDelete);
-        sb.append(", createdAt=").append(createdAt);
-        sb.append(", updatedAt=").append(updatedAt);
-        sb.append('}');
-        return sb.toString();
     }
 }
