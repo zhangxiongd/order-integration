@@ -2,6 +2,7 @@ package me.smart.order.service.impl;
 
 import me.smart.order.api.PaymentInfo;
 import me.smart.order.api.Result;
+import me.smart.order.api.member.Request.CancelRequest;
 import me.smart.order.api.member.Response.PayResult;
 import me.smart.order.dao.MemberUnionMapper;
 import me.smart.order.dao.MerchantMapper;
@@ -201,10 +202,11 @@ public class PaymentServiceImpl implements PaymentService {
 
 
     /**
-     * @param paymentOrder 要取消的支付订单
+     * @param cancelRequest 订单取消请求
      */
     @Override
-    public void cancel(PaymentOrder paymentOrder) throws Exception {
+    public void cancel(CancelRequest cancelRequest) throws Exception {
+        PaymentOrder paymentOrder = paymentOrderMapper.selectByMenuOrderNo(Long.valueOf(cancelRequest.getMemberId()),cancelRequest.getMenuOrderNo());
         logger.info("PaymentServiceImpl cancel menu_order_no={}, out_trade_no={}", paymentOrder.getMenuOrderNo(), paymentOrder.getOutTradeNo());
         List<PaymentRecord> paymentRecordList = paymentRecordMapper.selectByMeIdAndNo(paymentOrder.getMemberId(), paymentOrder.getOutTradeNo());
 

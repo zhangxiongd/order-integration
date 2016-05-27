@@ -6,6 +6,7 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="transaction_id" property="transactionId" jdbcType="VARCHAR"/>
         <result column="member_id" property="memberId" jdbcType="BIGINT"/>
+        <result column="merchant_id" property="merchantId" jdbcType="BIGINT"/>
         <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR"/>
         <result column="payment_way" property="paymentWay" jdbcType="VARCHAR"/>
         <result column="trade_type" property="tradeType" jdbcType="VARCHAR"/>
@@ -24,7 +25,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,transaction_id,member_id,out_trade_no,payment_way,trade_type,total_amount,refunded_amount,pay_status,
+        id,transaction_id,member_id,merchant_id,out_trade_no,payment_way,trade_type,total_amount,refunded_amount,pay_status,
         pay_success_time,prepay_id,out_transaction_id,thirdUser_id,return_code,return_msg,is_delete,created_at,updated_at
     </sql>
 
@@ -95,6 +96,9 @@
             <if test="memberId != null">
                 member_id,
             </if>
+            <if test="merchantId != null">
+                merchant_id,
+            </if>
             <if test="outTradeNo != null">
                 out_trade_no,
             </if>
@@ -147,6 +151,9 @@
             </if>
             <if test="memberId != null">
                 #{memberId, jdbcType"BIGINT},
+            </if>
+            <if test="merchantId != null">
+                #{merchantId, jdbcType"BIGINT},
             </if>
             <if test="outTradeNo != null">
                 #{outTradeNo, jdbcType=VARCHAR},

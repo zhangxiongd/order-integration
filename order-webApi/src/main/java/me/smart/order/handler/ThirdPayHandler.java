@@ -52,7 +52,7 @@ public interface ThirdPayHandler {
      * @param
      * @return
      */
-    RefundInfo handleRefund(PaymentOrder order, PaymentRefund paymentRefund) throws BusinessException;
+    RefundInfo handleRefund(PaymentOrder order,PaymentRecord paymentRecord, PaymentRefund paymentRefund) throws BusinessException;
 
     /**
      * 支付查询

@@ -34,7 +34,6 @@ public class PaymentController extends BaseController {
         try {
             cancelRequest.validate();
         } catch (Exception e) {
-
         }
         return null;
     }

@@ -3,9 +3,8 @@ package me.smart.order.dto.payment;
 /**
  * Created by zhangxiong on 16/3/20.
  */
-public class RefundRequest {
-    protected Long corpId;
-    private String payTransId;
+public class    RefundRequest {
+    private String transactionId;
     private String payMethod;
     private String payTradeType;
     /**
@@ -24,26 +23,13 @@ public class RefundRequest {
     private String refundFeeCurrency;
     private String userId;
     private String outTransId;
-    /**
-     * 记录退款操作人员（是手动退款）
-     */
-    private String operator;
 
-
-    public Long getCorpId() {
-        return corpId;
+    public String getTransactionId() {
+        return transactionId;
     }
 
-    public void setCorpId(Long corpId) {
-        this.corpId = corpId;
-    }
-
-    public String getPayTransId() {
-        return payTransId;
-    }
-
-    public void setPayTransId(String payTransId) {
-        this.payTransId = payTransId;
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 
     public String getPayMethod() {
@@ -116,13 +102,5 @@ public class RefundRequest {
 
     public void setOutTransId(String outTransId) {
         this.outTransId = outTransId;
-    }
-
-    public String getOperator() {
-        return operator;
-    }
-
-    public void setOperator(String operator) {
-        this.operator = operator;
     }
 }

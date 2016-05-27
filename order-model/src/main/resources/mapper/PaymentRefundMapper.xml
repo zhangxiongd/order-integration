@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.smart.order.dao.PaymentRefundMapper">
+
+    <resultMap id="BaseResultMap" type="me.smart.order.model.PaymentRefund">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="member_id" property="memberId" jdbcType="BIGINT"/>
+        <result column="merchant_id" property="merchantId" jdbcType="BIGINT"/>
+        <result column="transaction_id" property="transactionId" jdbcType="VARCHAR"/>
+        <result column="refund_amount" property="refundAmount" jdbcType="DECIMAL"/>
+        <result column="refund_no" property="refundNo" jdbcType="VARCHAR"/>
+        <result column="refund_status" property="refundStatus" jdbcType="TINYINT"/>
+        <result column="refund_success_time" property="refundSuccessTime" jdbcType="TIMESTAMP"/>
+        <result column="refund_batch_no" property="refundBatchNo" jdbcType="VARCHAR"/>
+        <result column="out_refund_no" property="outRefundNo" jdbcType="VARCHAR"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,member_id,merchant_id,transaction_id,refund_amount,refund_no,refund_status,
+        refund_success_time,refund_bath_no,out_refund_no,operator,is_delete,created_at,updated_at
+    </sql>
+
+
+    <insert id="insert" parameterType="me.smart.order.model.PaymentRefund" useGeneratedKeys="true" keyProperty="id">
+          insert into payment_refund_trace
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+              <if test="memberId != null">
+                  member_id
+              </if>
+              <if test="merchantId != null">
+                  merchant_id
+              </if>
+              <if test="transactionId != null">
+                  transaction_id
+              </if>
+              <if test="refundAmount != null">
+                  refund_amount
+              </if>
+              <if test="refundNo != null">
+                  refund_no
+              </if>
+              <if test="refundStatus != null">
+                  refund_status
+              </if>
+              <if test="refundSuccessTime != null">
+                  refund_success_time
+              </if>
+              <if test="refundBatchNo != null">
+                  refund_batch_no
+              </if>
+              <if test="outRefundNo != null">
+                  out_refund_no
+              </if>
+              <if test="operator != null">
+                  operator
+              </if>
+              <if test="isDelete != null">
+                  is_delete
+              </if>
+              <if test="createdAt != null">
+                  created_at
+              </if>
+              <if test="updatedAt != null">
+                  updated_at
+              </if>
+          </trim>
+          <trim prefix="values (" suffix=")" suffixOverrides=",">
+              <if test="memberId != null">
+                  #{memberI, jdbcType=BIGINT},
+              </if>
+              <if test="merchantId != null">
+                  #{merchantI, jdbcTyp=eBIGINT},
+              </if>
+              <if test="transactionId != null">
+                  #{transactionId, jdbcType=VARCHAR},
+              </if>
+              <if test="refundAmount != null">
+                  #{refundAmount, jdbcType=DECIMAL},
+              </if>
+              <if test="refundNo != null">
+                  #{refundNo, jdbcType=VARCHAR},
+              </if>
+              <if test="refundStatus != null">
+                  #{refundStatus, jdbcType=TINYINT},
+              </if>
+              <if test="refundSuccessTime != null">
+                  #{refundSuccessTime, jdbcType="TMESTAMP},
+              </if>
+              <if test="refundBatchNo != null">
+                  #{refundBatchNo, jdbcType=VARCHAR},
+              </if>
+              <if test="outRefundNo != null">
+                  #{outRefundNo, jdbcType=VARCHAR},
+              </if>
+              <if test="operator != null">
+                  #{operator, jdbcType=VARCHAR},
+              </if>
+              <if test="isDelete != null">
+                  #{isDelete, jdbcType=TINYINT},
+              </if>
+              <if test="createdAt != null">
+                  #{createdAt, jdbcType="TMESTAMP},
+              </if>
+              <if test="updatedAt != null">
+                  #{updatedAt, jdbcType="TMESTAMP},
+              </if>
+          </trim>
+    </insert>
+
+    <update id="update" parameterType="me.smart.order.model.PaymentRefund">
+          update payment_refund_trace
+          <set>
+              <if test="refundStatus != null">
+                  refund_status = #{refundStatus, jdbcType=TINYINT},
+              </if>
+              <if test="refundSuccessTime != null">
+                  refund_success_time = #{refundSuccessTime, jdbcType="TMESTAMP},
+              </if>
+              <if test="outRefundNo != null">
+                  out_refund_no = #{outRefundNo, jdbcType=VARCHAR},
+              </if>
+              <if test="isDelete != null">
+                  is_delete = #{isDelete, jdbcType=TINYINT},
+              </if>
+              <if test="updatedAt != null">
+                  updated_at = #{updatedAt, jdbcType="TMESTAMP},
+              </if>
+          </set>
+        where id = #{id, jdbcTyp=eBIGINT}
+    </update>
+</mapper>

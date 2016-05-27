@@ -2,6 +2,7 @@ package me.smart.order.service;
 
 import me.smart.order.api.PaymentInfo;
 import me.smart.order.api.Result;
+import me.smart.order.api.member.Request.CancelRequest;
 import me.smart.order.enums.PaymentWay;
 import me.smart.order.enums.TradeType;
 import me.smart.order.exception.BusinessException;
@@ -26,7 +27,7 @@ public interface PaymentService {
 
     PaymentRecord insertPaymentRecord(PaymentOrder paymentOrder, PaymentInfo paymentInfo);
 
-    void cancel(PaymentOrder paymentOrder) throws Exception;
+    void cancel(CancelRequest cancelRequest) throws Exception;
 
 
 }

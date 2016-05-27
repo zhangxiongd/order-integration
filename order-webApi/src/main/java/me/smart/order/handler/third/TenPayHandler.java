@@ -89,7 +89,13 @@ public class TenPayHandler extends BaseThirdPayHandler {
 
     @Override
     protected RefundRespResult refund(RefundRequest refundRequest, PaymentRefund paymentRefund) {
+        try{
+            String certPath = "";
+            String password = "";
 
+        }catch (Exception e){
+
+        }
         return null;
     }
 

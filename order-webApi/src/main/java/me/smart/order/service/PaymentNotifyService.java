@@ -7,9 +7,9 @@ import me.smart.order.model.PaymentRecord;
  * Created by zhangxiong on 16/5/14.
  */
 public interface PaymentNotifyService {
-    String acceptTenPayNotify(String msg);
+    String acceptTenPayNotify(String msg) throws Exception;
 
     String acceptALiPayNotify(String msg);
 
-    PaymentOrder processNotify(PaymentRecord paymentRecord);
+    PaymentOrder processNotify(PaymentRecord paymentRecord) throws Exception;
 }
