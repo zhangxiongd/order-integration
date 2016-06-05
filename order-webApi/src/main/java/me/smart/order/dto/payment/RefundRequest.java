@@ -1,9 +1,12 @@
 package me.smart.order.dto.payment;
 
+import java.io.Serializable;
+
 /**
  * Created by zhangxiong on 16/3/20.
  */
-public class    RefundRequest {
+public class  RefundRequest implements Serializable{
+    private String outTradeNo;
     private String transactionId;
     private String payMethod;
     private String payTradeType;
@@ -23,6 +26,14 @@ public class    RefundRequest {
     private String refundFeeCurrency;
     private String userId;
     private String outTransId;
+
+    public String getOutTradeNo() {
+        return outTradeNo;
+    }
+
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
+    }
 
     public String getTransactionId() {
         return transactionId;
@@ -103,4 +114,5 @@ public class    RefundRequest {
     public void setOutTransId(String outTransId) {
         this.outTransId = outTransId;
     }
+
 }

@@ -68,7 +68,6 @@ public class TenPayUnifiedOrderBusiness {
                 throw new SystemException(ErrorCode.TENPAY_PAY_RESULT_ERROR, respData.getErr_code_des());
             }
             return respData;
-
         }
     }
 }

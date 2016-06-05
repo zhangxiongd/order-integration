@@ -1,29 +1,31 @@
 package me.smart.order.dto.payment;
 
+import lombok.ToString;
+
 import java.io.Serializable;
 
+@ToString
 public class RefundRespResult implements Serializable {
 
     /**
      *
      */
     private static final long serialVersionUID = -620863677389630658L;
-    private String out_trade_no;//商户订单号
+    private String outTradNo;//商户订单号
     private int applyRefundStatus;//申请退款状态
-    private String eleRefundNo;//支付平台退款单号
+    private String refundNo;//支付平台退款单号
 
     private String thirdRefundNo;//第三方退款单号
 
     public RefundRespResult() {
 
     }
-
-    public String getOut_trade_no() {
-        return out_trade_no;
+    public String getOutTradNo() {
+        return outTradNo;
     }
 
-    public void setOut_trade_no(String out_trade_no) {
-        this.out_trade_no = out_trade_no;
+    public void setOutTradNo(String outTradNo) {
+        this.outTradNo = outTradNo;
     }
 
     public int getApplyRefundStatus() {
@@ -34,12 +36,12 @@ public class RefundRespResult implements Serializable {
         this.applyRefundStatus = applyRefundStatus;
     }
 
-    public String getEleRefundNo() {
-        return eleRefundNo;
+    public String getRefundNo() {
+        return refundNo;
     }
 
-    public void setEleRefundNo(String eleRefundNo) {
-        this.eleRefundNo = eleRefundNo;
+    public void setRefundNo(String refundNo) {
+        this.refundNo = refundNo;
     }
 
     public String getThirdRefundNo() {
@@ -50,19 +52,5 @@ public class RefundRespResult implements Serializable {
         this.thirdRefundNo = thirdRefundNo;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("RefundRespResult [out_trade_no=");
-        builder.append(out_trade_no);
-        builder.append(", applyRefundStatus=");
-        builder.append(applyRefundStatus);
-        builder.append(", eleRefundNo=");
-        builder.append(eleRefundNo);
-        builder.append(", thirdRefundNo=");
-        builder.append(thirdRefundNo);
-        builder.append("]");
-        return builder.toString();
-    }
 
 }

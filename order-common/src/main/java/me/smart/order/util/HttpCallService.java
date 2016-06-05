@@ -8,15 +8,23 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.config.ConnectionConfig;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.conn.ConnectionPoolTimeoutException;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLContexts;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.util.StringUtils;
 
+import javax.net.ssl.SSLContext;
+import java.io.InputStream;
 import java.net.SocketTimeoutException;
+import java.security.KeyStore;
 
 /**
  * Created by zhangxiong on 16/1/15.
@@ -24,10 +32,10 @@ import java.net.SocketTimeoutException;
 public class HttpCallService {
     private Logger logger = LoggerFactory.getLogger(HttpCallService.class);
     // 连接超时时间，默认10秒
-    private int socketTimeout = 4000;
+    private int socketTimeout = 1000;
 
     // 传输超时时间，默认30秒
-    private int connectTimeout = 4000;
+    private int connectTimeout = 5000;
 
     // 请求器的配置
     private RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(socketTimeout)
@@ -117,5 +125,40 @@ public class HttpCallService {
             httpPost.abort();
         }
         return result;
+    }
+
+    public void setHttpClient(String certPath, String password) throws Exception {
+        if (!(StringUtils.isEmpty(certPath) && StringUtils.isEmpty(password))) {
+            KeyStore keyStore = KeyStore.getInstance("PKCS12");
+            SSLContext sslcontext = null;
+            InputStream instream = null;
+            try {
+                logger.info("证书路径,path={}", certPath);
+                instream = new FileSystemResource(certPath).getInputStream();
+                if (instream != null) {
+                    logger.info("成功获取证书");
+                    keyStore.load(instream, password.toCharArray());// 设置证书密码
+                    sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, password.toCharArray()).build();
+                    @SuppressWarnings("deprecation")
+                    SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslcontext,
+                            new String[]{"TLSv1"}, null,
+                            SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
+                    ConnectionConfig connectionConfig = ConnectionConfig.custom().setBufferSize(4128).build();
+                    //                    httpClient = HttpClients.custom().setConnectionManager(poolClientConnectionManager)
+                    //                            .setDefaultConnectionConfig(connectionConfig).setDefaultRequestConfig(requestConfig)
+                    //                            .setSSLSocketFactory(sslsf).build();
+                    httpClient = HttpClients.custom().setDefaultConnectionConfig(connectionConfig)
+                            .setDefaultRequestConfig(requestConfig).setSSLSocketFactory(sslsf).build();
+                }
+            } catch (Exception e) {
+                logger.error("获取证书失败",e);
+            } finally {
+                instream.close();
+            }
+
+        } else {
+            logger.error("证书路径，证书密码为空");
+            throw new Exception("证书路径，证书密码为空");
+        }
     }
 }

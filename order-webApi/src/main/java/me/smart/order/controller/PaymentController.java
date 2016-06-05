@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 
@@ -15,7 +16,7 @@ import javax.annotation.Resource;
  * Created by zhangxiong on 16/1/14.
  */
 @Controller
-@RequestMapping("payment")
+@RequestMapping("/payment")
 public class PaymentController extends BaseController {
 
     private Logger logger = LoggerFactory.getLogger(PaymentController.class);
@@ -30,12 +31,16 @@ public class PaymentController extends BaseController {
      * @param cancelRequest
      * @return
      */
+    @RequestMapping(value = "/cancel",method = RequestMethod.POST)
     public Result cancel(@RequestBody CancelRequest cancelRequest) {
         try {
             cancelRequest.validate();
+            paymentService.cancel(cancelRequest);
+            return Result.createResult(null);
         } catch (Exception e) {
+            logger.error("取消订单失败，请稍后重试",e);
+           return errorResult(e);
         }
-        return null;
     }
 
 }

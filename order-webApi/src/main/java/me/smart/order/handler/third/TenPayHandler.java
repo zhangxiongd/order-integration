@@ -1,14 +1,18 @@
 package me.smart.order.handler.third;
 
 import me.smart.order.api.PaymentInfo;
+import me.smart.order.business.tenpay.TenPayRefundBusiness;
 import me.smart.order.business.tenpay.TenPayResultBusiness;
 import me.smart.order.business.tenpay.TenPayUnifiedOrderBusiness;
 import me.smart.order.constant.TenPayConstant;
 import me.smart.order.dto.payment.RefundRequest;
 import me.smart.order.dto.payment.RefundRespResult;
+import me.smart.order.dto.tenpay.RefundResData;
+import me.smart.order.dto.tenpay.TenPayRefundReqData;
 import me.smart.order.dto.tenpay.UnifiedOrderReqData;
 import me.smart.order.dto.tenpay.UnifiedOrderRespData;
 import me.smart.order.enums.PaymentWay;
+import me.smart.order.enums.RefundStatus;
 import me.smart.order.enums.ResultCode;
 import me.smart.order.enums.TradeType;
 import me.smart.order.exception.BusinessException;
@@ -43,6 +47,8 @@ public class TenPayHandler extends BaseThirdPayHandler {
     private PaymentService paymentService;
     @Resource
     private TenPayUnifiedOrderBusiness tenPayUnifiedOrderBusiness;
+    @Resource
+    private TenPayRefundBusiness tenPayRefundBusiness;
 
     @Override
     protected PaymentRecord pushPayment(PaymentOrder order, PaymentInfo paymentInfo, Map<String, Object> ext) throws BusinessException {
@@ -88,15 +94,42 @@ public class TenPayHandler extends BaseThirdPayHandler {
     }
 
     @Override
-    protected RefundRespResult refund(RefundRequest refundRequest, PaymentRefund paymentRefund) {
+    protected RefundRespResult refund(RefundRequest refundRequest, PaymentRefund paymentRefund) throws BusinessException{
         try{
             String certPath = "";
             String password = "";
+            TenPayRefundReqData refundReqData = new TenPayRefundReqData();
+            refundReqData.setAppid(TenPayConstant.APP_ID);
+            refundReqData.setMch_id(TenPayConstant.MCHID);
+            refundReqData.setOp_user_id(TenPayConstant.MCHID);
+            refundReqData.setTransaction_id(""); // transaction_id是微信系统为每一笔支付交易分配的订单号，通过这个订单号可以标识这笔交易，它由支付订单API支付成功时返回的数据里面获取到。
+            refundReqData.setOut_trade_no(refundRequest.getTransactionId()); // 商户系统自己生成的唯一的订单号
+            refundReqData.setDevice_info(""); // 微信支付分配的终端设备号，与下单一致
+            refundReqData.setOut_refund_no(String.valueOf(paymentRefund.getRefundNo()));
+            refundReqData.setTotal_fee(refundRequest.getOrderAmount());
+            refundReqData.setRefund_fee(paymentRefund.getRefundAmount().intValue());
+            refundReqData.setNonce_str(RandomStringGenerator.getRandomStringByLength(32)); // 随机字符串，不长于32 位
+            String sign = TenPaySignature.getSign(refundReqData.toMap()); // 根据API给的签名规则进行签名
+            refundReqData.setSign(sign);// 把签名数据设置到Sign这个属性中
 
+            // 组微信退款申请报文
+            RefundResData refundRes = null;
+            try {
+                refundRes =tenPayRefundBusiness .process(refundReqData,certPath,password);
+            } catch (Exception e) {
+                logger.error("weixin refund fail,RefundNo={}", paymentRefund.getRefundNo(), e);
+                throw e;
+            }
+            RefundRespResult refundRespResult = new RefundRespResult();
+            refundRespResult.setApplyRefundStatus(RefundStatus.PROCESSING.getCode());
+            refundRespResult.setRefundNo(paymentRefund.getRefundNo());//平台退款单号
+            refundRespResult.setThirdRefundNo(refundRes.getRefund_id());// 第三方退款单号
+            refundRespResult.setOutTradNo(refundRequest.getOutTradeNo());
+            return refundRespResult;
         }catch (Exception e){
-
+             logger.error("微信退款请求参数封装异常",e);
+            throw new BusinessException(ResultCode.TENPAY_SYS_ERROR);
         }
-        return null;
     }
 
 

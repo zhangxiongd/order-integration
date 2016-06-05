@@ -4,10 +4,7 @@ import me.smart.order.api.PaymentInfo;
 import me.smart.order.api.Result;
 import me.smart.order.api.member.Request.CancelRequest;
 import me.smart.order.api.member.Response.PayResult;
-import me.smart.order.dao.MemberUnionMapper;
-import me.smart.order.dao.MerchantMapper;
-import me.smart.order.dao.PaymentOrderMapper;
-import me.smart.order.dao.PaymentRecordMapper;
+import me.smart.order.dao.*;
 import me.smart.order.enums.*;
 import me.smart.order.exception.BusinessException;
 import me.smart.order.handler.ThirdPayHandler;
@@ -57,6 +54,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Resource
     private PaymentRecordMapper paymentRecordMapper;
+
+    @Resource
+    private MenuOrderMapper menuOrderMapper;
 
 
     /**
@@ -207,11 +207,14 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void cancel(CancelRequest cancelRequest) throws Exception {
         PaymentOrder paymentOrder = paymentOrderMapper.selectByMenuOrderNo(Long.valueOf(cancelRequest.getMemberId()),cancelRequest.getMenuOrderNo());
+        MenuOrder menuOrder = menuOrderMapper.selectByMenuOrderNo(Long.valueOf(cancelRequest.getMerchantId()),cancelRequest.getMenuOrderNo());
+
+        if(menuOrder.getOrderStatus() != MenuOrderStatus.PENDING.getStatus()){
+            throw new BusinessException(ResultCode.ORDER_STATUS_ERROR);
+        }
         logger.info("PaymentServiceImpl cancel menu_order_no={}, out_trade_no={}", paymentOrder.getMenuOrderNo(), paymentOrder.getOutTradeNo());
         List<PaymentRecord> paymentRecordList = paymentRecordMapper.selectByMeIdAndNo(paymentOrder.getMemberId(), paymentOrder.getOutTradeNo());
-
         ThirdPayHandler thirdPayHandler = getThirdPayHandler(PaymentWay.TEN_PAY);
-
         thirdPayHandler.handleCancel(paymentOrder, paymentRecordList.get(0));
     }
 }

@@ -1,5 +1,9 @@
 package me.smart.order.dto.tenpay;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by zhangxiong on 16/3/19.
  */
@@ -117,4 +121,24 @@ public class TenPayRefundReqData {
     public void setRefund_fee_type(String refund_fee_type) {
         this.refund_fee_type = refund_fee_type;
     }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            Object obj;
+            try {
+                obj = field.get(this);
+                if (obj != null) {
+                    map.put(field.getName(), obj);
+                }
+            } catch (IllegalArgumentException e) {
+                //logger.error(e.getMessage(),e);
+            } catch (IllegalAccessException e) {
+                //logger.error(e.getMessage(),e);
+            }
+        }
+        return map;
+    }
 }
+

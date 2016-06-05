@@ -2,15 +2,13 @@ package me.smart.order.handler.third;
 
 import me.smart.order.api.PaymentInfo;
 import me.smart.order.api.RefundInfo;
+import me.smart.order.api.Result;
 import me.smart.order.dao.PaymentOrderMapper;
 import me.smart.order.dao.PaymentRecordMapper;
 import me.smart.order.dao.PaymentRefundMapper;
 import me.smart.order.dto.payment.RefundRequest;
 import me.smart.order.dto.payment.RefundRespResult;
-import me.smart.order.enums.PaymentOrderStatus;
-import me.smart.order.enums.PaymentRecordStatus;
-import me.smart.order.enums.PaymentWay;
-import me.smart.order.enums.RefundStatus;
+import me.smart.order.enums.*;
 import me.smart.order.exception.BusinessException;
 import me.smart.order.handler.ThirdPayHandler;
 import me.smart.order.model.PaymentOrder;
@@ -97,16 +95,33 @@ public abstract class BaseThirdPayHandler implements ThirdPayHandler {
 
     @Override
     public RefundInfo handleRefund(PaymentOrder order, PaymentRecord paymentRecord, PaymentRefund paymentRefund) throws BusinessException {
-        RefundRespResult respResult = refund(createRefundQuest(paymentRecord,paymentRefund),paymentRefund);
+        RefundRespResult respResult = null;
+        PaymentRefund refund = new PaymentRefund();
+        try{
+            respResult  = refund(createRefundQuest(paymentRecord,paymentRefund),paymentRefund);
+            refund.setId(paymentRefund.getId());
+            refund.setRefundStatus(respResult.getApplyRefundStatus());
+        }catch (BusinessException e){
+            //将此退款流水置失败
+            refund.setId(paymentRefund.getId());
+            refund.setRefundStatus(RefundStatus.FAIL.getCode());
+            throw  e;
+        }
+        try{
+            paymentRefundMapper.update(refund);
+        }catch (Exception e){
+            logger.error("sql error",e);
+            throw new BusinessException(ResultCode.SQL_ERROR);
+        }
         return parseRefundInfo(respResult,paymentRecord,paymentRefund);
     }
 
     private RefundInfo parseRefundInfo(RefundRespResult respResult, PaymentRecord paymentRecord,PaymentRefund paymentRefund){
         RefundInfo refundInfo = new RefundInfo();
-        refundInfo.setOutTransId(respResult.getOut_trade_no());
+        refundInfo.setOutTransId(paymentRecord.getOutTransactionId());
         refundInfo.setRefundAmount(paymentRefund.getRefundAmount().intValue());
         refundInfo.setOutBatchNo(paymentRefund.getRefundBatchNo());
-        refundInfo.setOutRefundNo(paymentRefund.getOutRefundNo());
+        refundInfo.setOutRefundNo(respResult.getThirdRefundNo());
         refundInfo.setPayMethod(PaymentWay.parse(paymentRecord.getPaymentWay()));
         refundInfo.setRefundStatus(RefundStatus.parse( paymentRefund.getRefundStatus()));
         return refundInfo;
@@ -119,7 +134,7 @@ public abstract class BaseThirdPayHandler implements ThirdPayHandler {
      * @param paymentRefund
      * @return
      */
-    protected abstract RefundRespResult refund(RefundRequest refundRequest, PaymentRefund paymentRefund);
+    protected abstract RefundRespResult refund(RefundRequest refundRequest, PaymentRefund paymentRefund) throws BusinessException;
 
     @Override
 
@@ -146,11 +161,6 @@ public abstract class BaseThirdPayHandler implements ThirdPayHandler {
         return payUrls;
     }
 
-    protected void updatePaymentRecordNotPay(PaymentOrder paymentOrder) {
-
-    }
-
-
     private RefundRequest createRefundQuest(PaymentRecord paymentRecord, PaymentRefund paymentRefund){
         RefundRequest refundRequest = new RefundRequest();
         refundRequest.setOrderAmount(paymentRecord.getTotalAmount().intValue());
@@ -159,6 +169,7 @@ public abstract class BaseThirdPayHandler implements ThirdPayHandler {
         refundRequest.setPayMethod(paymentRecord.getPaymentWay());
         refundRequest.setPayTradeType(paymentRecord.getTradeType());
         refundRequest.setTransactionId(paymentRecord.getTransactionId());
+        refundRequest.setOutTradeNo(paymentRecord.getOutTradeNo());
         return refundRequest;
     }
 
