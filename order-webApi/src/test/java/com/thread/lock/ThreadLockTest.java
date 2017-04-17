@@ -1,5 +1,7 @@
 package com.thread.lock;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -15,14 +17,12 @@ public class ThreadLockTest {
     static String currentThread = "A";
 
     public static void main(String[] args) {
-//        ThreadLockTest test = new ThreadLockTest();
-//        ExecutorService executorService = Executors.newFixedThreadPool(2);
-//        executorService.execute(test.new ThreadLockNumber());
-//        executorService.execute(test.new ThreadLockCharacter());
-//        executorService.shutdown();
-        String a = "abv";
-        String b = "ab" + new String("v");
-        System.out.println(a == b);
+        ThreadLockTest test = new ThreadLockTest();
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.execute(test.new ThreadLockNumber());
+        executorService.execute(test.new ThreadLockCharacter());
+        executorService.shutdown();
+
 
     }
 

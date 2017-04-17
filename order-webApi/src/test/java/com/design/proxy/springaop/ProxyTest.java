@@ -15,8 +15,10 @@ public class ProxyTest {
 
         proxyFactory.addAdvice(new AfterAdvice2());
         proxyFactory.addAdvice(new AfterAdvice3());
-        proxyFactory.addAdvice(new BeforeAdvice3());
+
         proxyFactory.addAdvice(new BeforeAdvice2());
+        proxyFactory.addAdvice(new BeforeAdvice3());
+
         //target class
         LoginService loginService = new LoginServiceImpl();
         proxyFactory.setTarget(loginService);

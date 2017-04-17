@@ -27,7 +27,6 @@
         <module name="order-console" />
         <module name="order-merchant" />
         <module name="order-model" />
-        <module name="order-service" />
         <module name="order-weiApi" />
       </profile>
     </annotationProcessing>

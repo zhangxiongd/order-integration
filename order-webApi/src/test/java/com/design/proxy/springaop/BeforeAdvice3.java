@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 public class BeforeAdvice3 implements MethodBeforeAdvice {
     @Override
     public void before(Method method, Object[] args, Object target) throws Throwable {
+        System.out.println(method.getName());
         System.out.println("BeforeAdvice3.before() execute ");
 
     }
